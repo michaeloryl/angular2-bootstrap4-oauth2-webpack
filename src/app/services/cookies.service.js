@@ -8,19 +8,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("angular2/core");
-var ProtectedPage = (function () {
-    function ProtectedPage() {
+var CookieService = (function () {
+    function CookieService() {
     }
-    ProtectedPage = __decorate([
-        core_1.Component({
-            selector: 'protected-page',
-            directives: [],
-            pipes: [],
-            template: "\n<div>I'm protected</div>\n"
-        }), 
+    CookieService.prototype.getCookie = function (cookieName) {
+        return Cookies.get(cookieName);
+    };
+    CookieService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], ProtectedPage);
-    return ProtectedPage;
+    ], CookieService);
+    return CookieService;
 })();
-exports.ProtectedPage = ProtectedPage;
-//# sourceMappingURL=protected-page.js.map
+exports.CookieService = CookieService;
+//# sourceMappingURL=cookies.service.js.map

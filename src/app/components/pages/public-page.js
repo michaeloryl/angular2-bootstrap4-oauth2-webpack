@@ -8,18 +8,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("angular2/core");
+var cookies_service_1 = require('../../services/cookies.service');
 var PublicPage = (function () {
-    function PublicPage() {
-        console.log("Public instantiated");
+    function PublicPage(cookies) {
+        this.cookies = cookies;
     }
+    Object.defineProperty(PublicPage.prototype, "xsrfCookie", {
+        get: function () {
+            return this.cookies.getCookie('XSRF-TOKEN');
+        },
+        enumerable: true,
+        configurable: true
+    });
     PublicPage = __decorate([
         core_1.Component({
             selector: 'public-page',
             directives: [],
             pipes: [],
-            template: "\n<div>I'm public</div>\n"
+            providers: [cookies_service_1.CookieService],
+            template: "\n<div>I'm public: {{xsrfCookie}}</div>\n"
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [cookies_service_1.CookieService])
     ], PublicPage);
     return PublicPage;
 })();

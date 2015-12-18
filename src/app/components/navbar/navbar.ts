@@ -8,13 +8,13 @@ import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
     directives: [ROUTER_DIRECTIVES],
     pipes: [],
     template: `
-    <nav class="navbar navbar-fixed-top navbar-dark bg-primary navbar-static-top">
+    <nav class="navbar navbar-fixed-top navbar-dark bg-success navbar-static-top">
         <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
             &#9776;
         </button>
         <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-            <a class="navbar-brand text-success" href="#">A2B4O2OM</a>
-            <ul class="nav navbar-nav">
+            <a style="color:black" class="navbar-brand" href="#">A2B4O2OM</a>
+            <ul class="nav navbar-nav pull-xs-right">
                 <li class="nav-item">
                     <a [ngClass]="{active: page === 'public'}" class="nav-link" [routerLink]="['PublicPage']">Public</a>
                 </li>

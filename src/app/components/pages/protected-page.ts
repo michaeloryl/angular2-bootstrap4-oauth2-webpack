@@ -16,6 +16,6 @@ import {Component} from "angular2/core";
 })
 export class ProtectedPage {
     constructor() {
-        console.log("Protected instantiated");
+        //console.log("Protected instantiated");
     }
 }
