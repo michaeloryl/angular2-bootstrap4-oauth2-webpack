@@ -1,0 +1,32 @@
+{
+  "name": "angular2-lesson",
+  "version": "1.0.0",
+  "description": "A simple base setup of Angular2 and Bootstrap 4",
+  "author": "Michael Oryl",
+  "main": "",
+  "scripts": {
+    "start": "node server",
+    "tsc": "tsc -w -p src --sourceMap"
+  },
+  "dependencies": {
+    "angular2": "^2.0.0-beta.0",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.13",
+    "reflect-metadata": "^0.1.2",
+    "require": "^2.4.20",
+    "rxjs": "^5.0.0-beta.0",
+    "traceur": "0.0.93",
+    "zone.js": "^0.5.8"
+  },
+  "devDependencies": {
+    "del": "^2.0.2",
+    "express": "^4.13.3",
+    "livereload": "^0.4.0",
+    "style-loader": "^0.13.0",
+    "ts-loader": "^0.7.2",
+    "tsd": "^0.6.5",
+    "typescript": "^1.7.3",
+    "systemjs": "^0.19.8",
+    "css-loader": "^0.23.0"
+  }
+}

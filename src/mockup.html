@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>gulp-webpack</title>
+
+    <!-- Put your css files here to have them load in development. In production they will be concated together. -->
+    <!-- build:css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- endbuild -->
+    <style>
+        body {
+            /* Show it's not fixed to the top */
+            min-height: 75rem;
+            padding-top: 6rem;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="pos-f-t">
+    <nav class="navbar navbar-fixed-top navbar-dark bg-primary navbar-static-top">
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+            &#9776;
+        </button>
+        <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+            <a class="navbar-brand" href="#">APPNAME</a>
+            <ul class="nav navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <a class="dropdown-item" href="#">One</a>
+                            <a class="dropdown-item" href="#">Two</a>
+                            <a class="dropdown-item" href="#">Three</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+            <form class="form-inline pull-xs-right hidden-sm-down">
+                <input class="form-control" type="text" placeholder="search text">
+                <button class="btn btn-success-outline" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Angular 2 / Bootstrap 4</h1>
+        <p class="lead">This is a basic Angular2 app using Twitter Bootstrap 4 as a CSS framework.</p>
+        <a class="btn btn-lg btn-primary" href="#" role="button">Say something</a>
+    </div>
+</div>
+
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+
+
+<!-- These are the necessary angular2 development files. Don't put your own files here or they won't be included in production. -->
+<!-- build:js -->
+<script src="../node_modules/systemjs/dist/system.js"></script>
+<script src="../node_modules/typescript/lib/typescript.js"></script>
+<script src="../node_modules/angular2/bundles/angular2.dev.js"></script>
+<script src="../node_modules/angular2/bundles/http.dev.js"></script>
+<script>
+    System.config({
+        packages: {'app': {defaultExtension: 'js'}}
+    });
+    System.import('./app/app');
+</script>
+
+<script src="http://localhost:35729/livereload.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>
