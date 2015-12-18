@@ -10,9 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("angular2/core");
 var CookieService = (function () {
     function CookieService() {
+        this.cookies = Cookies;
     }
     CookieService.prototype.getCookie = function (cookieName) {
-        return Cookies.get(cookieName);
+        return this.cookies.get(cookieName);
+    };
+    CookieService.prototype.getAllCookies = function () {
+        return this.cookies.get();
+    };
+    CookieService.prototype.setCookie = function (name, value, path, domain, expiresInDays) {
+        if (path === void 0) { path = '/'; }
+        if (expiresInDays === void 0) { expiresInDays = 0; }
+        var options = {};
+        options.path = path;
+        if (domain) {
+            options.domain = domain;
+        }
+        if (expiresInDays > 0) {
+            options.expires = expiresInDays;
+        }
+        this.cookies.set(name, value, options);
     };
     CookieService = __decorate([
         core_1.Injectable(), 
