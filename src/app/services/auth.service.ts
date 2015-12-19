@@ -5,25 +5,28 @@
  * Time: 10:34 AM
  */
 import {Injectable} from "angular2/core";
-import {Http} from 'angular2/http';
-import {Location} from 'angular2/router';
+import {WindowService} from './window.service';
 
 @Injectable()
 export class AuthService {
     private authenticated = false;
-    private redirectUrl = 'http://localhost:3000/auth/callback';
-    private oAuthBaseUrl = 'https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=${callbackUrl}&response_type=code&client_id=abc123&scope=offline_access+pml_data_access+basic_access'
+    private windowHandle = null;
+    private callbackTokenUrl = 'http://localhost:3000/%23/auth/callback';
+    private callbackCodeUrl = 'http://localhost:3000/auth/callback';
+    private oAuthCodeUrl = `https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=${this.callbackCodeUrl}&response_type=code&client_id=a2o2demo&scope=pml_data_access+basic_access`;
+    private oAuthTokenUrl = `https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=${this.callbackTokenUrl}&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access`;
+    private useToken:boolean = true;
 
-    constructor(http:Http, location:Location) {
+    constructor(public windows:WindowService) {
 
     }
 
     doOAuthLogin() {
-        window.location.href = this.oAuth2URL();
+        this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
     }
 
     oAuth2URL() {
-        return 'https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=https://test.pennmutual.com/oauth2/&response_type=code&client_id=abc123&scope=offline_access+pml_data_access+basic_access'
+        return (this.useToken ? this.oAuthTokenUrl : this.oAuthCodeUrl);
     }
 
     get isAuthenticated() {

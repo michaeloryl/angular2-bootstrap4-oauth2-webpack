@@ -6,22 +6,36 @@
  */
 import {Component} from "angular2/core";
 import {CookieService} from '../../services/cookies.service';
+import {WindowService} from '../../services/window.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
     selector: 'public-page',
     directives: [],
     pipes: [],
-    providers: [CookieService],
+    providers: [],
     template: `
 <div>I'm public: {{xsrfCookie}}</div>
+<div class="row">
+<div class="col-xs-3"><button (click)="doLogin()" class="btn btn-primary">Login!</button></div>
+<div class="col-xs-6">{{myWindow }}</div>
+<div class="col-xs-3">{{idCookie }}</div>
+</div>
 `
 })
 export class PublicPage {
-    constructor(public cookies:CookieService) {
+    myWindow = null;
+
+    constructor(private  cookies:CookieService,
+                private authService:AuthService) {
         //console.log("Public instantiated");
     }
 
-    get xsrfCookie() {
-        return this.cookies.getCookie('XSRF-TOKEN');
+    get idCookie() {
+        return this.cookies.getCookie('id');
+    }
+
+    doLogin() {
+        this.myWindow = this.authService.doOAuthLogin();
     }
 }

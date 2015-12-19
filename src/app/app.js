@@ -14,6 +14,9 @@ var common_1 = require('angular2/common');
 var navbar_1 = require('./components/navbar/navbar');
 var protected_page_1 = require('./components/pages/protected-page');
 var public_page_1 = require('./components/pages/public-page');
+var window_service_1 = require('./services/window.service');
+var auth_service_1 = require('./services/auth.service');
+var cookies_service_1 = require('./services/cookies.service');
 var App = (function () {
     function App() {
     }
@@ -32,5 +35,5 @@ var App = (function () {
     return App;
 })();
 exports.App = App;
-browser_1.bootstrap(App, [common_1.COMMON_DIRECTIVES, router_1.ROUTER_DIRECTIVES, router_1.ROUTER_PROVIDERS, core_1.provide(router_1.LocationStrategy, { useClass: router_1.HashLocationStrategy })]);
+browser_1.bootstrap(App, [cookies_service_1.CookieService, auth_service_1.AuthService, window_service_1.WindowService, common_1.COMMON_DIRECTIVES, router_1.ROUTER_DIRECTIVES, router_1.ROUTER_PROVIDERS, core_1.provide(router_1.LocationStrategy, { useClass: router_1.PathLocationStrategy })]);
 //# sourceMappingURL=app.js.map

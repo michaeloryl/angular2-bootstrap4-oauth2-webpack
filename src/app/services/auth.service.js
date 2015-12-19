@@ -8,19 +8,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("angular2/core");
-var http_1 = require('angular2/http');
-var router_1 = require('angular2/router');
+var window_service_1 = require('./window.service');
 var AuthService = (function () {
-    function AuthService(http, location) {
+    function AuthService(windows) {
+        this.windows = windows;
         this.authenticated = false;
-        this.redirectUrl = 'http://localhost:3000/auth/callback';
-        this.oAuthBaseUrl = 'https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=${callbackUrl}&response_type=code&client_id=abc123&scope=offline_access+pml_data_access+basic_access';
+        this.windowHandle = null;
+        this.callbackTokenUrl = 'http://localhost:3000/%23/auth/callback';
+        this.callbackCodeUrl = 'http://localhost:3000/auth/callback';
+        this.oAuthCodeUrl = "https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=" + this.callbackCodeUrl + "&response_type=code&client_id=a2o2demo&scope=pml_data_access+basic_access";
+        this.oAuthTokenUrl = "https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=" + this.callbackTokenUrl + "&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access";
+        this.useToken = true;
     }
     AuthService.prototype.doOAuthLogin = function () {
-        window.location.href = this.oAuth2URL();
+        this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
     };
     AuthService.prototype.oAuth2URL = function () {
-        return 'https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=https://test.pennmutual.com/oauth2/&response_type=code&client_id=abc123&scope=offline_access+pml_data_access+basic_access';
+        return (this.useToken ? this.oAuthTokenUrl : this.oAuthCodeUrl);
     };
     Object.defineProperty(AuthService.prototype, "isAuthenticated", {
         get: function () {
@@ -31,7 +35,7 @@ var AuthService = (function () {
     });
     AuthService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, router_1.Location])
+        __metadata('design:paramtypes', [window_service_1.WindowService])
     ], AuthService);
     return AuthService;
 })();
