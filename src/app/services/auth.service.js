@@ -9,6 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("angular2/core");
 var window_service_1 = require('./window.service');
+require('rxjs/add/observable/interval');
+require('rxjs/add/observable/timer');
+require('rxjs/add/operator/takeWhile');
+var Rx = require('rxjs/Rx.KitchenSink');
 var AuthService = (function () {
     function AuthService(windows) {
         this.windows = windows;
@@ -16,12 +20,41 @@ var AuthService = (function () {
         this.windowHandle = null;
         this.callbackTokenUrl = 'http://localhost:3000/auth/callback';
         this.oAuthTokenUrl = "https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=" + this.callbackTokenUrl + "&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access";
+        this.locationWatcher = new core_1.EventEmitter();
     }
     AuthService.prototype.doOAuthLogin = function () {
-        if ("onhashchange" in window) {
-            console.log('Supports onhashchange');
-        }
-        this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
+        var _this = this;
+        console.log('Logging in');
+        var mySub = this.locationWatcher.subscribe(function (val) {
+            console.log('Received:', val);
+        }, function (err) {
+            console.log('Received error:', err);
+        }, function (complete) {
+            console.log('Completed:', complete);
+        });
+        console.log("Before:", this.locationWatcher);
+        this.locationWatcher.emit('Fred');
+        console.log("After:", this.locationWatcher);
+        setInterval(function () {
+            _this.locationWatcher.emit('Gone');
+        }, 2000);
+    };
+    AuthService.prototype.doObservableTest = function () {
+        var _this = this;
+        this.windowHandle = this.windows.createWindow('http://localhost:3000/', 'OAuth2 Login');
+        var counter = 0;
+        var source = Rx.Observable.timer(0, 100)
+            .map(function () { return _this.windowHandle.location.href; })
+            .takeWhile(function () {
+            return counter++ < 5000;
+        });
+        var mySub = source.subscribe(function (val) {
+            console.log('Received:', val);
+        }, function (err) {
+            console.log('Received error:', err);
+        }, function (complete) {
+            console.log('Completed:', complete);
+        });
     };
     AuthService.prototype.oAuth2URL = function () {
         return this.oAuthTokenUrl;

@@ -14,7 +14,6 @@ var common_1 = require('angular2/common');
 var navbar_1 = require('./components/navbar/navbar');
 var protected_page_1 = require('./components/pages/protected-page');
 var public_page_1 = require('./components/pages/public-page');
-var colin_page_1 = require('./components/pages/colin-page');
 var window_service_1 = require('./services/window.service');
 var auth_service_1 = require('./services/auth.service');
 var cookies_service_1 = require('./services/cookies.service');
@@ -30,7 +29,6 @@ var App = (function () {
         router_1.RouteConfig([
             { path: '/public', name: 'PublicPage', component: public_page_1.PublicPage },
             { path: '/protected', name: 'ProtectedPage', component: protected_page_1.ProtectedPage },
-            { path: '/colin', name: 'ColinPage', component: colin_page_1.ColinPage },
             { path: '/', redirectTo: ['PublicPage'] }
         ]), 
         __metadata('design:paramtypes', [])

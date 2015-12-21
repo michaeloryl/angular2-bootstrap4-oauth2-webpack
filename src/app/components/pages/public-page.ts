@@ -22,6 +22,7 @@ import {Navbar} from '../../components/navbar/navbar';
 <div>I'm public: {{xsrfCookie}}</div>
 <div class="row">
 <div class="col-xs-3"><button (click)="doLogin()" class="btn btn-primary">Login!</button></div>
+<div class="col-xs-3"><button (click)="doObTest()" class="btn btn-primary">Observe!</button></div>
 <div class="col-xs-6">{{myWindow }}</div>
 <div class="col-xs-3">{{idCookie }}</div>
 </div>
@@ -41,5 +42,9 @@ export class PublicPage {
 
     doLogin() {
         this.myWindow = this.authService.doOAuthLogin();
+    }
+
+    doObTest() {
+        this.authService.doObservableTest();
     }
 }

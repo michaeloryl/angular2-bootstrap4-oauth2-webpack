@@ -27,13 +27,16 @@ var PublicPage = (function () {
     PublicPage.prototype.doLogin = function () {
         this.myWindow = this.authService.doOAuthLogin();
     };
+    PublicPage.prototype.doObTest = function () {
+        this.authService.doObservableTest();
+    };
     PublicPage = __decorate([
         core_1.Component({
             selector: 'public-page',
             directives: [navbar_1.Navbar],
             pipes: [],
             providers: [],
-            template: "\n<div class=\"pos-f-t\">\n    <navbar></navbar>\n</div>\n<div>I'm public: {{xsrfCookie}}</div>\n<div class=\"row\">\n<div class=\"col-xs-3\"><button (click)=\"doLogin()\" class=\"btn btn-primary\">Login!</button></div>\n<div class=\"col-xs-6\">{{myWindow }}</div>\n<div class=\"col-xs-3\">{{idCookie }}</div>\n</div>\n"
+            template: "\n<div class=\"pos-f-t\">\n    <navbar></navbar>\n</div>\n<div>I'm public: {{xsrfCookie}}</div>\n<div class=\"row\">\n<div class=\"col-xs-3\"><button (click)=\"doLogin()\" class=\"btn btn-primary\">Login!</button></div>\n<div class=\"col-xs-3\"><button (click)=\"doObTest()\" class=\"btn btn-primary\">Observe!</button></div>\n<div class=\"col-xs-6\">{{myWindow }}</div>\n<div class=\"col-xs-3\">{{idCookie }}</div>\n</div>\n"
         }), 
         __metadata('design:paramtypes', [cookies_service_1.CookieService, auth_service_1.AuthService])
     ], PublicPage);
