@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("angular2/core");
 var window_service_1 = require('./window.service');
+var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/observable/interval');
 require('rxjs/add/observable/timer');
 require('rxjs/add/operator/takeWhile');
@@ -39,9 +40,22 @@ var AuthService = (function () {
             _this.locationWatcher.emit('Gone');
         }, 2000);
     };
+    AuthService.prototype.doObservableTest2 = function () {
+        console.log('Listening for event');
+        this.windowHandle = this.windows.createWindow('http://localhost:3000/', 'OAuth2 Login');
+        var counter = 0;
+        var source = Observable_1.Observable.fromEvent(this.windowHandle, 'hashchange');
+        var mySub = source.subscribe(function (val) {
+            console.log('Received:', val);
+        }, function (err) {
+            console.log('Received error:', err);
+        }, function (complete) {
+            console.log('Completed:', complete);
+        });
+    };
     AuthService.prototype.doObservableTest = function () {
         var _this = this;
-        this.windowHandle = this.windows.createWindow('http://localhost:3000/', 'OAuth2 Login');
+        this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
         var counter = 0;
         var source = Rx.Observable.timer(0, 100)
             .map(function () { return _this.windowHandle.location.href; })

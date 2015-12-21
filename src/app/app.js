@@ -36,5 +36,5 @@ var App = (function () {
     return App;
 })();
 exports.App = App;
-browser_1.bootstrap(App, [cookies_service_1.CookieService, auth_service_1.AuthService, window_service_1.WindowService, common_1.COMMON_DIRECTIVES, router_1.ROUTER_DIRECTIVES, router_1.ROUTER_PROVIDERS, core_1.provide(router_1.LocationStrategy, { useClass: router_1.PathLocationStrategy })]);
+browser_1.bootstrap(App, [cookies_service_1.CookieService, auth_service_1.AuthService, window_service_1.WindowService, common_1.COMMON_DIRECTIVES, router_1.ROUTER_DIRECTIVES, router_1.ROUTER_PROVIDERS, core_1.provide(router_1.LocationStrategy, { useClass: router_1.HashLocationStrategy })]);
 //# sourceMappingURL=app.js.map

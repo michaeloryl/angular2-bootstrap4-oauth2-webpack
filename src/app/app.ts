@@ -32,4 +32,4 @@ import {CallbackComponent} from "./components/auth/callback";
 export class App {
 }
 
-bootstrap(App, [CookieService, AuthService, WindowService, COMMON_DIRECTIVES, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, provide(LocationStrategy, {useClass: PathLocationStrategy})]); // directives added here are available to all children
+bootstrap(App, [CookieService, AuthService, WindowService, COMMON_DIRECTIVES, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy})]); // directives added here are available to all children

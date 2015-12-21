@@ -52,8 +52,30 @@ export class AuthService {
         }, 2000);
     }
 
-    doObservableTest() {
+    doObservableTest2() {
+        console.log('Listening for event');
         this.windowHandle = this.windows.createWindow('http://localhost:3000/', 'OAuth2 Login');
+
+        var counter = 0;
+
+        var source = Observable.fromEvent(this.windowHandle, 'hashchange');
+
+        var mySub = source.subscribe(
+            (val) => {
+                console.log('Received:', val);
+            },
+            (err) => {
+                console.log('Received error:', err);
+            },
+            (complete) => {
+                console.log('Completed:', complete);
+            }
+        );
+
+    }
+
+    doObservableTest() {
+        this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
 
         var counter = 0;
 
