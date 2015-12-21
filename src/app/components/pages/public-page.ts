@@ -8,13 +8,17 @@ import {Component} from "angular2/core";
 import {CookieService} from '../../services/cookies.service';
 import {WindowService} from '../../services/window.service';
 import {AuthService} from '../../services/auth.service';
+import {Navbar} from '../../components/navbar/navbar';
 
 @Component({
     selector: 'public-page',
-    directives: [],
+    directives: [Navbar],
     pipes: [],
     providers: [],
     template: `
+<div class="pos-f-t">
+    <navbar></navbar>
+</div>
 <div>I'm public: {{xsrfCookie}}</div>
 <div class="row">
 <div class="col-xs-3"><button (click)="doLogin()" class="btn btn-primary">Login!</button></div>

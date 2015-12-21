@@ -14,6 +14,7 @@ var common_1 = require('angular2/common');
 var navbar_1 = require('./components/navbar/navbar');
 var protected_page_1 = require('./components/pages/protected-page');
 var public_page_1 = require('./components/pages/public-page');
+var colin_page_1 = require('./components/pages/colin-page');
 var window_service_1 = require('./services/window.service');
 var auth_service_1 = require('./services/auth.service');
 var cookies_service_1 = require('./services/cookies.service');
@@ -24,11 +25,13 @@ var App = (function () {
         core_1.Component({
             selector: 'app',
             directives: [navbar_1.Navbar, router_1.ROUTER_DIRECTIVES],
-            template: "\n<div class=\"pos-f-t\">\n    <navbar></navbar>\n</div>\n\n<div class=\"container-fluid\">\n    <router-outlet></router-outlet>\n</div>\n\n    "
+            template: "\n<div class=\"container-fluid\">\n    <router-outlet></router-outlet>\n</div>\n"
         }),
         router_1.RouteConfig([
-            { path: '/public', name: 'PublicPage', component: public_page_1.PublicPage, useAsDefault: true },
-            { path: '/protected', name: 'ProtectedPage', component: protected_page_1.ProtectedPage }
+            { path: '/public', name: 'PublicPage', component: public_page_1.PublicPage },
+            { path: '/protected', name: 'ProtectedPage', component: protected_page_1.ProtectedPage },
+            { path: '/colin', name: 'ColinPage', component: colin_page_1.ColinPage },
+            { path: '/', redirectTo: ['PublicPage'] }
         ]), 
         __metadata('design:paramtypes', [])
     ], App);

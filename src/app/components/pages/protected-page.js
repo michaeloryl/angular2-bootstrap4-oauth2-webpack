@@ -8,15 +8,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("angular2/core");
+var navbar_1 = require('../../components/navbar/navbar');
 var ProtectedPage = (function () {
     function ProtectedPage() {
     }
     ProtectedPage = __decorate([
         core_1.Component({
             selector: 'protected-page',
-            directives: [],
+            directives: [navbar_1.Navbar],
             pipes: [],
-            template: "\n<div>I'm protected</div>\n"
+            template: "\n<div class=\"pos-f-t\">\n    <navbar></navbar>\n</div>\n<div>I'm protected</div>\n"
         }), 
         __metadata('design:paramtypes', [])
     ], ProtectedPage);

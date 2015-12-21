@@ -13,7 +13,7 @@ export class WindowService {
 
         var options = `width=${width},height=${height},left=${left},top=${top}`;
 
-        console.log("Window options: ", options);
+        // console.log("Window options: ", options);
         return window.open(url, name, options);
     }
 }

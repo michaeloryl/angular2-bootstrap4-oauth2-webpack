@@ -12,6 +12,10 @@ app.get('/auth/callback', function(req, res) {
   res.send('Received the callback');
 });
 app.use('/', express.static(__dirname + '/src'));
+app.use('/public', express.static(__dirname + '/src'));
+app.use('/protected', express.static(__dirname + '/src'));
+app.use('/colin', express.static(__dirname + '/src'));
+app.use('/auth/callback', express.static(__dirname + '/src'));
 
 app.listen(3000);
 console.log('Listening on port 3000.');

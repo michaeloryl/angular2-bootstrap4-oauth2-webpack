@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("angular2/core");
 var cookies_service_1 = require('../../services/cookies.service');
 var auth_service_1 = require('../../services/auth.service');
+var navbar_1 = require('../../components/navbar/navbar');
 var PublicPage = (function () {
     function PublicPage(cookies, authService) {
         this.cookies = cookies;
@@ -29,10 +30,10 @@ var PublicPage = (function () {
     PublicPage = __decorate([
         core_1.Component({
             selector: 'public-page',
-            directives: [],
+            directives: [navbar_1.Navbar],
             pipes: [],
             providers: [],
-            template: "\n<div>I'm public: {{xsrfCookie}}</div>\n<div class=\"row\">\n<div class=\"col-xs-3\"><button (click)=\"doLogin()\" class=\"btn btn-primary\">Login!</button></div>\n<div class=\"col-xs-6\">{{myWindow }}</div>\n<div class=\"col-xs-3\">{{idCookie }}</div>\n</div>\n"
+            template: "\n<div class=\"pos-f-t\">\n    <navbar></navbar>\n</div>\n<div>I'm public: {{xsrfCookie}}</div>\n<div class=\"row\">\n<div class=\"col-xs-3\"><button (click)=\"doLogin()\" class=\"btn btn-primary\">Login!</button></div>\n<div class=\"col-xs-6\">{{myWindow }}</div>\n<div class=\"col-xs-3\">{{idCookie }}</div>\n</div>\n"
         }), 
         __metadata('design:paramtypes', [cookies_service_1.CookieService, auth_service_1.AuthService])
     ], PublicPage);

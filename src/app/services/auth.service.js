@@ -14,17 +14,17 @@ var AuthService = (function () {
         this.windows = windows;
         this.authenticated = false;
         this.windowHandle = null;
-        this.callbackTokenUrl = 'http://localhost:3000/%23/auth/callback';
-        this.callbackCodeUrl = 'http://localhost:3000/auth/callback';
-        this.oAuthCodeUrl = "https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=" + this.callbackCodeUrl + "&response_type=code&client_id=a2o2demo&scope=pml_data_access+basic_access";
+        this.callbackTokenUrl = 'http://localhost:3000/auth/callback';
         this.oAuthTokenUrl = "https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=" + this.callbackTokenUrl + "&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access";
-        this.useToken = true;
     }
     AuthService.prototype.doOAuthLogin = function () {
+        if ("onhashchange" in window) {
+            console.log('Supports onhashchange');
+        }
         this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
     };
     AuthService.prototype.oAuth2URL = function () {
-        return (this.useToken ? this.oAuthTokenUrl : this.oAuthCodeUrl);
+        return this.oAuthTokenUrl;
     };
     Object.defineProperty(AuthService.prototype, "isAuthenticated", {
         get: function () {
