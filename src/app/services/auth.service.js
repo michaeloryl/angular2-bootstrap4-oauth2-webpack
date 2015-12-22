@@ -90,7 +90,7 @@ var AuthService = (function () {
         }
         this.expiresTimerId = setTimeout(function () {
             _this.doLogout();
-        }, 10000);
+        }, seconds * 1000);
         console.log('Token expiration timer set for %s seconds', seconds);
     };
     AuthService.prototype.getEvent = function () {

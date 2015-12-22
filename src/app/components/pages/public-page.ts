@@ -20,9 +20,9 @@ import {Navbar} from '../../components/navbar/navbar';
     <navbar></navbar>
 </div>
 <div>I'm public: {{xsrfCookie}}</div>
+<div>Am I authenticated?: {{authenticated}}</div>
 <div class="row">
 <div class="col-xs-3"><button (click)="doLogin()" class="btn btn-primary">Login!</button></div>
-<div class="col-xs-3"><button (click)="doObTest()" class="btn btn-primary">Observe!</button></div>
 <div class="col-xs-6">{{myWindow }}</div>
 <div class="col-xs-3">{{idCookie }}</div>
 </div>
@@ -40,15 +40,15 @@ export class PublicPage {
         return this.cookies.getCookie('id');
     }
 
+    get authenticated() {
+        return this.authService.isAuthenticated();
+    }
+
     doLogin() {
         this.myWindow = this.authService.doLogin();
     }
 
     doLogout() {
         this.myWindow = this.authService.doLogout();
-    }
-
-    doObTest() {
-        this.authService.doObservableTest();
     }
 }
