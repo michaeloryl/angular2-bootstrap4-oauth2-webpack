@@ -27,7 +27,19 @@ export class AuthService {
     }
 
     doOAuthLogin() {
-        console.log('Logging in');
+        this.windowHandle = this.windows.createWindow(this.oAuthTokenUrl, 'OAuth2 Login');
+
+        setInterval(() => {
+            try {
+                console.log('Location: ', this.windowHandle.location.href);
+            } catch (e) {
+                console.log('Error:', e);
+            }
+        }, 500);
+    }
+
+    doOAuthLogin2() {
+        console.log('Logging in!');
 
         var mySub = this.locationWatcher.subscribe(
             (val) => {
@@ -52,7 +64,7 @@ export class AuthService {
         }, 2000);
     }
 
-    doObservableTest2() {
+    doObservableTest() {
         console.log('Listening for event');
         this.windowHandle = this.windows.createWindow('http://localhost:3000/', 'OAuth2 Login');
 
@@ -74,13 +86,15 @@ export class AuthService {
 
     }
 
-    doObservableTest() {
+    doObservableTest2() {
         this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
 
         var counter = 0;
 
         var source = Rx.Observable.timer(0, 100)
-            .map(() => { return this.windowHandle.location.href })
+            .map(() => {
+                return this.windowHandle.location.href
+            })
             .takeWhile(() => {
                 return counter++ < 5000;
             });
@@ -99,42 +113,42 @@ export class AuthService {
 
     }
 
-/*
-    doOAuthLogin() {
-        this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
+    /*
+     doOAuthLogin() {
+     this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
 
-        var observ = Observable.create((ob) => {
-            ob.next(42);
-            ob.complete();
+     var observ = Observable.create((ob) => {
+     ob.next(42);
+     ob.complete();
 
-            // Note that this is optional, you do not have to return this if you require no cleanup
-            return function () {
-                console.log('disposed');
-            };
-        });
-/!*
-            .timer(0, 500)
-            .take(5);
-*!/
+     // Note that this is optional, you do not have to return this if you require no cleanup
+     return function () {
+     console.log('disposed');
+     };
+     });
+     /!*
+     .timer(0, 500)
+     .take(5);
+     *!/
 
-        var subscription = observ.subscribe(
-            function (href) {
-                console.log('Next:', href);
-            },
-            function (err) {
-                console.log('Error:', err);
-            },
-            function () {
-                console.log('Completed');
-            }
-        );
+     var subscription = observ.subscribe(
+     function (href) {
+     console.log('Next:', href);
+     },
+     function (err) {
+     console.log('Error:', err);
+     },
+     function () {
+     console.log('Completed');
+     }
+     );
 
-/!*        setTimeout(function () {
-            subscription.remove();
-        }, 10000);*!/
+     /!*        setTimeout(function () {
+     subscription.remove();
+     }, 10000);*!/
 
-    }
-*/
+     }
+     */
 
     oAuth2URL() {
         return this.oAuthTokenUrl;

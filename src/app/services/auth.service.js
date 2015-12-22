@@ -25,7 +25,19 @@ var AuthService = (function () {
     }
     AuthService.prototype.doOAuthLogin = function () {
         var _this = this;
-        console.log('Logging in');
+        this.windowHandle = this.windows.createWindow(this.oAuthTokenUrl, 'OAuth2 Login');
+        setInterval(function () {
+            try {
+                console.log('Location: ', _this.windowHandle.location.href);
+            }
+            catch (e) {
+                console.log('Error:', e);
+            }
+        }, 500);
+    };
+    AuthService.prototype.doOAuthLogin2 = function () {
+        var _this = this;
+        console.log('Logging in!');
         var mySub = this.locationWatcher.subscribe(function (val) {
             console.log('Received:', val);
         }, function (err) {
@@ -40,7 +52,7 @@ var AuthService = (function () {
             _this.locationWatcher.emit('Gone');
         }, 2000);
     };
-    AuthService.prototype.doObservableTest2 = function () {
+    AuthService.prototype.doObservableTest = function () {
         console.log('Listening for event');
         this.windowHandle = this.windows.createWindow('http://localhost:3000/', 'OAuth2 Login');
         var counter = 0;
@@ -53,12 +65,14 @@ var AuthService = (function () {
             console.log('Completed:', complete);
         });
     };
-    AuthService.prototype.doObservableTest = function () {
+    AuthService.prototype.doObservableTest2 = function () {
         var _this = this;
         this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
         var counter = 0;
         var source = Rx.Observable.timer(0, 100)
-            .map(function () { return _this.windowHandle.location.href; })
+            .map(function () {
+            return _this.windowHandle.location.href;
+        })
             .takeWhile(function () {
             return counter++ < 5000;
         });
