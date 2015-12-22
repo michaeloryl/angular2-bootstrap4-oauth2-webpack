@@ -56,10 +56,12 @@ var AuthService = (function () {
                     var found = href.match(re);
                     if (found) {
                         clearInterval(_this.intervalId);
+                        var expiresSeconds = Number(found[2]);
                         _this.authenticated = true;
                         _this.token = found[1];
-                        _this.setExpiresTimer(Number(found[2]));
-                        _this.expires = Number(found[2]);
+                        _this.setExpiresTimer(expiresSeconds);
+                        _this.expires = new Date();
+                        _this.expires = _this.expires.setSeconds(_this.expires.getSeconds() + expiresSeconds);
                         _this.windowHandle.close();
                         _this.emitAuthStatus(true);
                     }
@@ -77,6 +79,9 @@ var AuthService = (function () {
     };
     AuthService.prototype.emitAuthStatus = function (success) {
         this.locationWatcher.emit({ success: success, authenticated: this.authenticated, token: this.token, expires: this.expires });
+    };
+    AuthService.prototype.getSession = function () {
+        return { authenticated: this.authenticated, token: this.token, expires: this.expires };
     };
     AuthService.prototype.fetchUserInfo = function () {
     };

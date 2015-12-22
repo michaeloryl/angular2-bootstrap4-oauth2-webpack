@@ -19,7 +19,7 @@ export class AuthService {
     private oAuthTokenUrl:string = `https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=${this.callbackTokenUrl}&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access`;
     private authenticated:boolean = false;
     private token:string;
-    private expires:number = 0;
+    private expires:any = 0;
     private userInfo:Object = {};
     private windowHandle:any = null;
     private intervalId:any = null;
@@ -65,10 +65,13 @@ export class AuthService {
                     var found = href.match(re);
                     if (found) {
                         clearInterval(this.intervalId);
+                        var expiresSeconds = Number(found[2]);
+
                         this.authenticated = true;
                         this.token = found[1];
-                        this.setExpiresTimer(Number(found[2]));
-                        this.expires = Number(found[2]);
+                        this.setExpiresTimer(expiresSeconds);
+                        this.expires = new Date();
+                        this.expires = this.expires.setSeconds(this.expires.getSeconds() + expiresSeconds);
                         this.windowHandle.close();
                         this.emitAuthStatus(true);
                     }
@@ -88,6 +91,10 @@ export class AuthService {
 
     private emitAuthStatus(success:boolean) {
         this.locationWatcher.emit({success: success, authenticated: this.authenticated, token: this.token, expires: this.expires });
+    }
+
+    public getSession() {
+        return {authenticated: this.authenticated, token: this.token, expires: this.expires };
     }
 
     private fetchUserInfo() {
