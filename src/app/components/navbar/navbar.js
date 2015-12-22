@@ -16,11 +16,18 @@ var Navbar = (function () {
         this.router = router;
         this.authService = authService;
     }
+    Object.defineProperty(Navbar.prototype, "authenticated", {
+        get: function () {
+            return this.authService.isAuthenticated();
+        },
+        enumerable: true,
+        configurable: true
+    });
     Navbar.prototype.doLogin = function () {
-        this.authService.doLogin();
+        this.myWindow = this.authService.doLogin();
     };
     Navbar.prototype.doLogout = function () {
-        this.authService.doLogout();
+        this.myWindow = this.authService.doLogout();
     };
     Object.defineProperty(Navbar.prototype, "page", {
         get: function () {
@@ -35,7 +42,7 @@ var Navbar = (function () {
             directives: [router_1.ROUTER_DIRECTIVES],
             providers: [],
             pipes: [],
-            template: "\n    <nav class=\"navbar navbar-fixed-top navbar-dark bg-success navbar-static-top\">\n        <button class=\"navbar-toggler hidden-sm-up\" type=\"button\" data-toggle=\"collapse\" data-target=\"#exCollapsingNavbar2\">\n            &#9776;\n        </button>\n        <div class=\"collapse navbar-toggleable-xs\" id=\"exCollapsingNavbar2\">\n            <a style=\"color:black\" class=\"navbar-brand\" href=\"#\">A2B4O2OM</a>\n            <ul class=\"nav navbar-nav\">\n                <li class=\"nav-item\">\n                    <a [ngClass]=\"{active: page === 'public'}\" class=\"nav-link\" [routerLink]=\"['PublicPage']\">Public</a>\n                </li>\n                <li class=\"nav-item\">\n                    <a [ngClass]=\"{active: page === 'protected'}\" class=\"nav-link\" [routerLink]=\"['ProtectedPage']\">Protected</a>\n                </li>\n            </ul>\n            <ul class=\"nav navbar-nav pull-xs-right\">\n                <li class=\"nav-item\">\n                    <a (click)=\"doLogin()\" [ngClass]=\"{active: page === 'public'}\" class=\"nav-link text-warning\" href=\"#\">Login</a>\n                </li>\n            </ul>\n        </div>\n    </nav>\n    "
+            template: "\n    <nav class=\"navbar navbar-fixed-top navbar-dark bg-success navbar-static-top\">\n        <button class=\"navbar-toggler hidden-sm-up\" type=\"button\" data-toggle=\"collapse\" data-target=\"#exCollapsingNavbar2\">\n            &#9776;\n        </button>\n        <div class=\"collapse navbar-toggleable-xs\" id=\"exCollapsingNavbar2\">\n            <a style=\"color:black\" class=\"navbar-brand\" href=\"#\">A2B4O2OM</a>\n            <ul class=\"nav navbar-nav\">\n                <li class=\"nav-item\">\n                    <button [ngClass]=\"{active: page === 'public'}\" class=\"nav-link btn btn-success-outline\" [routerLink]=\"['PublicPage']\">Public</button>\n                </li>\n                <li class=\"nav-item\">\n                    <button [disabled]=\"!authenticated\" [ngClass]=\"{active: page === 'protected'}\" class=\"nav-link btn btn-success-outline\" [routerLink]=\"['ProtectedPage']\">Protected</button>\n                </li>\n            </ul>\n            <ul class=\"nav navbar-nav pull-xs-right\">\n                <li class=\"nav-item\">\n                    <a *ngIf=\"!authenticated\" (click)=\"doLogin()\" class=\"nav-link text-warning\" href=\"#\">Login</a>\n                    <a *ngIf=\"authenticated\" (click)=\"doLogout()\" class=\"nav-link text-warning\" href=\"#\">Logout</a>\n                </li>\n            </ul>\n        </div>\n    </nav>\n    "
         }), 
         __metadata('design:paramtypes', [router_1.Location, router_1.Router, auth_service_1.AuthService])
     ], Navbar);

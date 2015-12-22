@@ -69,11 +69,12 @@ export class AuthService {
 
                         this.authenticated = true;
                         this.token = found[1];
-                        this.setExpiresTimer(expiresSeconds);
+                        this.startExpiresTimer(expiresSeconds);
                         this.expires = new Date();
                         this.expires = this.expires.setSeconds(this.expires.getSeconds() + expiresSeconds);
                         this.windowHandle.close();
                         this.emitAuthStatus(true);
+                        // @TODO: validate access token
                     }
                 }
             }
@@ -86,6 +87,7 @@ export class AuthService {
         this.expires = 0;
         this.token = null;
         this.emitAuthStatus(true);
+        // @TODO: invalidate the token?
         console.log('Session has expired');
     }
 
@@ -98,6 +100,7 @@ export class AuthService {
     }
 
     private fetchUserInfo() {
+        // @TODO: fetch the user info associated with the token
         // get user info associated with the current token
     }
 
@@ -105,7 +108,7 @@ export class AuthService {
         return this.userInfo;
     }
 
-    private setExpiresTimer(seconds:number) {
+    private startExpiresTimer(seconds:number) {
         if (this.expiresTimerId != null) {
             clearTimeout(this.expiresTimerId);
         }

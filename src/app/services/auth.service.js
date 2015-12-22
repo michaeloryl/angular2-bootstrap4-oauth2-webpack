@@ -59,7 +59,7 @@ var AuthService = (function () {
                         var expiresSeconds = Number(found[2]);
                         _this.authenticated = true;
                         _this.token = found[1];
-                        _this.setExpiresTimer(expiresSeconds);
+                        _this.startExpiresTimer(expiresSeconds);
                         _this.expires = new Date();
                         _this.expires = _this.expires.setSeconds(_this.expires.getSeconds() + expiresSeconds);
                         _this.windowHandle.close();
@@ -88,7 +88,7 @@ var AuthService = (function () {
     AuthService.prototype.getUserInfo = function () {
         return this.userInfo;
     };
-    AuthService.prototype.setExpiresTimer = function (seconds) {
+    AuthService.prototype.startExpiresTimer = function (seconds) {
         var _this = this;
         if (this.expiresTimerId != null) {
             clearTimeout(this.expiresTimerId);

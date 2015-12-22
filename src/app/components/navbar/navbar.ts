@@ -19,15 +19,16 @@ import {AuthService} from '../../services/auth.service';
             <a style="color:black" class="navbar-brand" href="#">A2B4O2OM</a>
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a [ngClass]="{active: page === 'public'}" class="nav-link" [routerLink]="['PublicPage']">Public</a>
+                    <button [ngClass]="{active: page === 'public'}" class="nav-link btn btn-success-outline" [routerLink]="['PublicPage']">Public</button>
                 </li>
                 <li class="nav-item">
-                    <a [ngClass]="{active: page === 'protected'}" class="nav-link" [routerLink]="['ProtectedPage']">Protected</a>
+                    <button [disabled]="!authenticated" [ngClass]="{active: page === 'protected'}" class="nav-link btn btn-success-outline" [routerLink]="['ProtectedPage']">Protected</button>
                 </li>
             </ul>
             <ul class="nav navbar-nav pull-xs-right">
                 <li class="nav-item">
-                    <a (click)="doLogin()" [ngClass]="{active: page === 'public'}" class="nav-link text-warning" href="#">Login</a>
+                    <a *ngIf="!authenticated" (click)="doLogin()" class="nav-link text-warning" href="#">Login</a>
+                    <a *ngIf="authenticated" (click)="doLogout()" class="nav-link text-warning" href="#">Logout</a>
                 </li>
             </ul>
         </div>
@@ -35,15 +36,19 @@ import {AuthService} from '../../services/auth.service';
     `
 })
 export class Navbar {
-    constructor(private location:Location, private router:Router, public authService:AuthService) {
+    constructor(private location:Location, private router:Router, private authService:AuthService) {
+    }
+
+    get authenticated() {
+        return this.authService.isAuthenticated();
     }
 
     doLogin() {
-        this.authService.doLogin();
+        this.myWindow = this.authService.doLogin();
     }
 
     doLogout() {
-        this.authService.doLogout();
+        this.myWindow = this.authService.doLogout();
     }
 
     get page() {
