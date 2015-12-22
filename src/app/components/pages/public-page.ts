@@ -41,7 +41,11 @@ export class PublicPage {
     }
 
     doLogin() {
-        this.myWindow = this.authService.doOAuthLogin();
+        this.myWindow = this.authService.doLogin();
+    }
+
+    doLogout() {
+        this.myWindow = this.authService.doLogout();
     }
 
     doObTest() {

@@ -39,7 +39,11 @@ export class Navbar {
     }
 
     doLogin() {
-        this.authService.doOAuthLogin();
+        this.authService.doLogin();
+    }
+
+    doLogout() {
+        this.authService.doLogout();
     }
 
     get page() {

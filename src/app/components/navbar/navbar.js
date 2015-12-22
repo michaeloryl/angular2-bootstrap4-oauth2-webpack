@@ -17,7 +17,10 @@ var Navbar = (function () {
         this.authService = authService;
     }
     Navbar.prototype.doLogin = function () {
-        this.authService.doOAuthLogin();
+        this.authService.doLogin();
+    };
+    Navbar.prototype.doLogout = function () {
+        this.authService.doLogout();
     };
     Object.defineProperty(Navbar.prototype, "page", {
         get: function () {

@@ -25,7 +25,10 @@ var PublicPage = (function () {
         configurable: true
     });
     PublicPage.prototype.doLogin = function () {
-        this.myWindow = this.authService.doOAuthLogin();
+        this.myWindow = this.authService.doLogin();
+    };
+    PublicPage.prototype.doLogout = function () {
+        this.myWindow = this.authService.doLogout();
     };
     PublicPage.prototype.doObTest = function () {
         this.authService.doObservableTest();

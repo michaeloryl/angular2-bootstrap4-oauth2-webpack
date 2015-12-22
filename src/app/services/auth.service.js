@@ -9,91 +9,99 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("angular2/core");
 var window_service_1 = require('./window.service');
-var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/observable/interval');
 require('rxjs/add/observable/timer');
 require('rxjs/add/operator/takeWhile');
-var Rx = require('rxjs/Rx.KitchenSink');
 var AuthService = (function () {
     function AuthService(windows) {
         this.windows = windows;
-        this.authenticated = false;
-        this.windowHandle = null;
         this.callbackTokenUrl = 'http://localhost:3000/auth/callback';
         this.oAuthTokenUrl = "https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=" + this.callbackTokenUrl + "&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access";
+        this.authenticated = false;
+        this.expires = 0;
+        this.userInfo = {};
+        this.windowHandle = null;
+        this.intervalId = null;
+        this.expiresTimerId = null;
+        this.loopCount = 600;
+        this.intervalLength = 100;
         this.locationWatcher = new core_1.EventEmitter();
+        this.subscription = this.getEvent().subscribe(function (val) {
+            console.log('Received:', val);
+        }, function (err) {
+            console.log('Received error:', err);
+        }, function () {
+            console.log('Completed');
+        });
     }
-    AuthService.prototype.doOAuthLogin = function () {
+    AuthService.prototype.doLogin = function () {
         var _this = this;
+        var loopCount = this.loopCount;
         this.windowHandle = this.windows.createWindow(this.oAuthTokenUrl, 'OAuth2 Login');
-        setInterval(function () {
-            try {
-                console.log('Location: ', _this.windowHandle.location.href);
+        this.intervalId = setInterval(function () {
+            if (loopCount-- < 0) {
+                clearInterval(_this.intervalId);
+                _this.emitAuthStatus(false);
+                _this.windowHandle.close();
             }
-            catch (e) {
-                console.log('Error:', e);
+            else {
+                var href;
+                try {
+                    href = _this.windowHandle.location.href;
+                }
+                catch (e) {
+                }
+                if (href != null) {
+                    var re = /.*\/auth\/callback#access_token=(.*)&expires_in=(.*)&token_type=Bearer/;
+                    var found = href.match(re);
+                    if (found) {
+                        clearInterval(_this.intervalId);
+                        _this.authenticated = true;
+                        _this.token = found[1];
+                        _this.setExpiresTimer(Number(found[2]));
+                        _this.expires = Number(found[2]);
+                        _this.windowHandle.close();
+                        _this.emitAuthStatus(true);
+                    }
+                }
             }
-        }, 500);
+        }, this.intervalLength);
     };
-    AuthService.prototype.doOAuthLogin2 = function () {
+    AuthService.prototype.doLogout = function () {
+        this.authenticated = false;
+        this.expiresTimerId = null;
+        this.expires = 0;
+        this.token = null;
+        this.emitAuthStatus(true);
+        console.log('Session has expired');
+    };
+    AuthService.prototype.emitAuthStatus = function (success) {
+        this.locationWatcher.emit({ success: success, authenticated: this.authenticated, token: this.token, expires: this.expires });
+    };
+    AuthService.prototype.fetchUserInfo = function () {
+    };
+    AuthService.prototype.getUserInfo = function () {
+        return this.userInfo;
+    };
+    AuthService.prototype.setExpiresTimer = function (seconds) {
         var _this = this;
-        console.log('Logging in!');
-        var mySub = this.locationWatcher.subscribe(function (val) {
-            console.log('Received:', val);
-        }, function (err) {
-            console.log('Received error:', err);
-        }, function (complete) {
-            console.log('Completed:', complete);
-        });
-        console.log("Before:", this.locationWatcher);
-        this.locationWatcher.emit('Fred');
-        console.log("After:", this.locationWatcher);
-        setInterval(function () {
-            _this.locationWatcher.emit('Gone');
-        }, 2000);
+        if (this.expiresTimerId != null) {
+            clearTimeout(this.expiresTimerId);
+        }
+        this.expiresTimerId = setTimeout(function () {
+            _this.doLogout();
+        }, 10000);
+        console.log('Token expiration timer set for %s seconds', seconds);
     };
-    AuthService.prototype.doObservableTest = function () {
-        console.log('Listening for event');
-        this.windowHandle = this.windows.createWindow('http://localhost:3000/', 'OAuth2 Login');
-        var counter = 0;
-        var source = Observable_1.Observable.fromEvent(this.windowHandle, 'hashchange');
-        var mySub = source.subscribe(function (val) {
-            console.log('Received:', val);
-        }, function (err) {
-            console.log('Received error:', err);
-        }, function (complete) {
-            console.log('Completed:', complete);
-        });
-    };
-    AuthService.prototype.doObservableTest2 = function () {
-        var _this = this;
-        this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
-        var counter = 0;
-        var source = Rx.Observable.timer(0, 100)
-            .map(function () {
-            return _this.windowHandle.location.href;
-        })
-            .takeWhile(function () {
-            return counter++ < 5000;
-        });
-        var mySub = source.subscribe(function (val) {
-            console.log('Received:', val);
-        }, function (err) {
-            console.log('Received error:', err);
-        }, function (complete) {
-            console.log('Completed:', complete);
-        });
+    AuthService.prototype.getEvent = function () {
+        return this.locationWatcher;
     };
     AuthService.prototype.oAuth2URL = function () {
         return this.oAuthTokenUrl;
     };
-    Object.defineProperty(AuthService.prototype, "isAuthenticated", {
-        get: function () {
-            return this.authenticated;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    AuthService.prototype.isAuthenticated = function () {
+        return this.authenticated;
+    };
     AuthService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [window_service_1.WindowService])
