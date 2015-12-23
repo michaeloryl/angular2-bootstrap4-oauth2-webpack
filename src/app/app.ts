@@ -1,5 +1,6 @@
 import {Component, provide} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouteConfig, ROUTER_PROVIDERS, RouterOutlet, PathLocationStrategy, HashLocationStrategy, LocationStrategy} from 'angular2/router';
+import {HTTP_PROVIDERS} from 'angular2/http';
 import {bootstrap} from 'angular2/platform/browser';
 import {COMMON_DIRECTIVES} from 'angular2/common';
 import {Subject} from 'rxjs/Subject';
@@ -32,4 +33,4 @@ import {CallbackComponent} from "./components/auth/callback";
 export class App {
 }
 
-bootstrap(App, [CookieService, AuthService, WindowService, COMMON_DIRECTIVES, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy})]); // directives added here are available to all children
+bootstrap(App, [CookieService, AuthService, WindowService, COMMON_DIRECTIVES, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, HTTP_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy})]); // directives added here are available to all children

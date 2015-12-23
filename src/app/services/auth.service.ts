@@ -6,17 +6,14 @@
  */
 import {Injectable, EventEmitter} from "angular2/core";
 import {WindowService} from './window.service';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/observable/timer';
-import 'rxjs/add/operator/takeWhile';
-
-import * as Rx from 'rxjs/Rx.KitchenSink';
+import {Http, Headers} from 'angular2/http'
 
 @Injectable()
 export class AuthService {
     private callbackTokenUrl:string = 'http://localhost:3000/auth/callback';
-    private oAuthTokenUrl:string = `https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=${this.callbackTokenUrl}&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access`;
+    private oAuthBaseUrl:string = 'https://test.pennmutual.com/oauth2/';
+    private oAuthTokenUrl:string = `${this.oAuthBaseUrl}dialog/authorize?redirect_uri=${this.callbackTokenUrl}&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access`;
+    private oAuthUserUrl:string = `${this.oAuthBaseUrl}api/userinfo`;
     private authenticated:boolean = false;
     private token:string;
     private expires:any = 0;
@@ -30,7 +27,7 @@ export class AuthService {
     private locationWatcher = new EventEmitter();
     private subscription;
 
-    constructor(public windows:WindowService) {
+    constructor(private windows:WindowService, private http:Http) {
         this.subscription = this.getEvent().subscribe(
             (val) => {
                 console.log('Received:', val);
@@ -74,6 +71,7 @@ export class AuthService {
                         this.expires = this.expires.setSeconds(this.expires.getSeconds() + expiresSeconds);
                         this.windowHandle.close();
                         this.emitAuthStatus(true);
+                        this.fetchUserInfo();
                         // @TODO: validate access token
                     }
                 }
@@ -100,12 +98,22 @@ export class AuthService {
     }
 
     private fetchUserInfo() {
-        // @TODO: fetch the user info associated with the token
-        // get user info associated with the current token
+        if (this.token != null) {
+            var headers = new Headers();
+            headers.append('Authorization', `Bearer ${this.token}`);
+            this.http.get(this.oAuthUserUrl, {headers: headers}).subscribe(info => {
+                this.userInfo = JSON.parse(info._body);
+                console.log("UserInfo:", this.userInfo);
+            });
+        }
     }
 
     public getUserInfo() {
         return this.userInfo;
+    }
+
+    public getUserName() {
+        return this.userInfo ? this.userInfo.name : null;
     }
 
     private startExpiresTimer(seconds:number) {
@@ -120,87 +128,6 @@ export class AuthService {
 
     public getEvent() {
         return this.locationWatcher;
-    }
-
-    /*
-     doOAuthLogin2() {
-     console.log('Logging in!');
-
-     var mySub = this.locationWatcher.subscribe(
-     (val) => {
-     console.log('Received:', val);
-     },
-     (err) => {
-     console.log('Received error:', err);
-     },
-     (complete) => {
-     console.log('Completed:', complete);
-     }
-     );
-
-     console.log("Before:", this.locationWatcher);
-
-     this.locationWatcher.emit('Fred');
-
-     console.log("After:", this.locationWatcher);
-
-     setInterval(() => {
-     this.locationWatcher.emit('Gone');
-     }, 2000);
-     }
-
-     doObservableTest() {
-     console.log('Listening for event');
-     this.windowHandle = this.windows.createWindow('http://localhost:3000/', 'OAuth2 Login');
-
-     var counter = 0;
-
-     var source = Observable.fromEvent(this.windowHandle, 'hashchange');
-
-     var mySub = source.subscribe(
-     (val) => {
-     console.log('Received:', val);
-     },
-     (err) => {
-     console.log('Received error:', err);
-     },
-     (complete) => {
-     console.log('Completed:', complete);
-     }
-     );
-
-     }
-
-     doObservableTest2() {
-     this.windowHandle = this.windows.createWindow(this.oAuth2URL(), 'OAuth2 Login');
-
-     var counter = 0;
-
-     var source = Rx.Observable.timer(0, 100)
-     .map(() => {
-     return this.windowHandle.location.href
-     })
-     .takeWhile(() => {
-     return counter++ < 5000;
-     });
-
-     var mySub = source.subscribe(
-     (val) => {
-     console.log('Received:', val);
-     },
-     (err) => {
-     console.log('Received error:', err);
-     },
-     (complete) => {
-     console.log('Completed:', complete);
-     }
-     );
-
-     }
-     */
-
-    private oAuth2URL() {
-        return this.oAuthTokenUrl;
     }
 
     public isAuthenticated() {

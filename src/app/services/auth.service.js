@@ -9,14 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("angular2/core");
 var window_service_1 = require('./window.service');
-require('rxjs/add/observable/interval');
-require('rxjs/add/observable/timer');
-require('rxjs/add/operator/takeWhile');
+var http_1 = require('angular2/http');
 var AuthService = (function () {
-    function AuthService(windows) {
+    function AuthService(windows, http) {
         this.windows = windows;
+        this.http = http;
         this.callbackTokenUrl = 'http://localhost:3000/auth/callback';
-        this.oAuthTokenUrl = "https://test.pennmutual.com/oauth2/dialog/authorize?redirect_uri=" + this.callbackTokenUrl + "&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access";
+        this.oAuthBaseUrl = 'https://test.pennmutual.com/oauth2/';
+        this.oAuthTokenUrl = this.oAuthBaseUrl + "dialog/authorize?redirect_uri=" + this.callbackTokenUrl + "&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access";
+        this.oAuthUserUrl = this.oAuthBaseUrl + "api/userinfo";
         this.authenticated = false;
         this.expires = 0;
         this.userInfo = {};
@@ -64,6 +65,7 @@ var AuthService = (function () {
                         _this.expires = _this.expires.setSeconds(_this.expires.getSeconds() + expiresSeconds);
                         _this.windowHandle.close();
                         _this.emitAuthStatus(true);
+                        _this.fetchUserInfo();
                     }
                 }
             }
@@ -84,9 +86,21 @@ var AuthService = (function () {
         return { authenticated: this.authenticated, token: this.token, expires: this.expires };
     };
     AuthService.prototype.fetchUserInfo = function () {
+        var _this = this;
+        if (this.token != null) {
+            var headers = new http_1.Headers();
+            headers.append('Authorization', "Bearer " + this.token);
+            this.http.get(this.oAuthUserUrl, { headers: headers }).subscribe(function (info) {
+                _this.userInfo = JSON.parse(info._body);
+                console.log("UserInfo:", _this.userInfo);
+            });
+        }
     };
     AuthService.prototype.getUserInfo = function () {
         return this.userInfo;
+    };
+    AuthService.prototype.getUserName = function () {
+        return this.userInfo ? this.userInfo.name : null;
     };
     AuthService.prototype.startExpiresTimer = function (seconds) {
         var _this = this;
@@ -101,15 +115,12 @@ var AuthService = (function () {
     AuthService.prototype.getEvent = function () {
         return this.locationWatcher;
     };
-    AuthService.prototype.oAuth2URL = function () {
-        return this.oAuthTokenUrl;
-    };
     AuthService.prototype.isAuthenticated = function () {
         return this.authenticated;
     };
     AuthService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [window_service_1.WindowService])
+        __metadata('design:paramtypes', [window_service_1.WindowService, http_1.Http])
     ], AuthService);
     return AuthService;
 })();

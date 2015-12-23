@@ -28,7 +28,7 @@ import {AuthService} from '../../services/auth.service';
             <ul class="nav navbar-nav pull-xs-right">
                 <li class="nav-item">
                     <button *ngIf="!authenticated" (click)="doLogin()" class="nav-link btn btn-danger-outline" href="#">Login</button>
-                    <button *ngIf="authenticated" (click)="doLogout()" class="nav-link btn btn-success-outline" href="#">Logout</button>
+                    <button *ngIf="authenticated" (click)="doLogout()" class="nav-link btn btn-success-outline" href="#">Logout {{userName}}</button>
                 </li>
             </ul>
         </div>
@@ -44,11 +44,15 @@ export class Navbar {
     }
 
     doLogin() {
-        this.myWindow = this.authService.doLogin();
+        this.authService.doLogin();
     }
 
     doLogout() {
-        this.myWindow = this.authService.doLogout();
+        this.authService.doLogout();
+    }
+
+    get userName() {
+        return this.authService.getUserName();
     }
 
     get page() {
