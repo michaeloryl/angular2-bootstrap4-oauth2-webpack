@@ -9,15 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("angular2/core");
 var navbar_1 = require('../../components/navbar/navbar');
+var protected_directive_1 = require("../../directives/protected.directive");
 var ProtectedPage = (function () {
     function ProtectedPage() {
     }
     ProtectedPage = __decorate([
         core_1.Component({
             selector: 'protected-page',
-            directives: [navbar_1.Navbar],
+            directives: [navbar_1.Navbar, protected_directive_1.ProtectedDirective],
             pipes: [],
-            template: "\n<div class=\"pos-f-t\">\n    <navbar></navbar>\n</div>\n<div>I'm protected</div>\n"
+            template: "\n<div class=\"pos-f-t\">\n    <navbar></navbar>\n</div>\n<div protected>I'm protected</div>\n"
         }), 
         __metadata('design:paramtypes', [])
     ], ProtectedPage);

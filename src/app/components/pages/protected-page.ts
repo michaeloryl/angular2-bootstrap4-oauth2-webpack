@@ -6,16 +6,17 @@
  */
 import {Component} from "angular2/core";
 import {Navbar} from '../../components/navbar/navbar';
+import {ProtectedDirective} from "../../directives/protected.directive";
 
 @Component({
     selector: 'protected-page',
-    directives: [Navbar],
+    directives: [Navbar, ProtectedDirective],
     pipes: [],
     template: `
 <div class="pos-f-t">
     <navbar></navbar>
 </div>
-<div>I'm protected</div>
+<div protected>I'm protected</div>
 `
 })
 export class ProtectedPage {

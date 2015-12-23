@@ -8,15 +8,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
+var auth_service_1 = require('../services/auth.service');
+var router_1 = require("angular2/router");
 var ProtectedDirective = (function () {
-    function ProtectedDirective(_el, renderer) {
-        this._el = _el;
+    function ProtectedDirective(authService, router, location) {
+        var _this = this;
+        this.authService = authService;
+        this.router = router;
+        this.location = location;
+        if (!authService.isAuthenticated()) {
+            this.location.replaceState('/');
+            this.router.navigate(['PublicPage']);
+        }
+        var sub = this.authService.getEvent().subscribe(function (val) {
+            console.log('[protected] Received:', val);
+            if (!val.authenticated) {
+                _this.location.replaceState('/');
+                _this.router.navigate(['PublicPage']);
+                sub.remove();
+            }
+        }, function (err) {
+            console.log('[protected] Received error:', err);
+        }, function () {
+            console.log('[protected] Completed');
+        });
     }
     ProtectedDirective = __decorate([
         core_1.Directive({
             selector: '[protected]'
         }), 
-        __metadata('design:paramtypes', [core_1.ElementRef, core_1.Renderer])
+        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router, router_1.Location])
     ], ProtectedDirective);
     return ProtectedDirective;
 })();
