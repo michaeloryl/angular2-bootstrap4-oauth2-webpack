@@ -28,17 +28,7 @@ export class AuthService {
     private subscription;
 
     constructor(private windows:WindowService, private http:Http) {
-        this.subscription = this.getEvent().subscribe(
-            (val) => {
-                console.log('Received:', val);
-            },
-            (err) => {
-                console.log('Received error:', err);
-            },
-            () => {
-                console.log('Completed');
-            }
-        );
+
     }
 
     public doLogin() {
@@ -103,7 +93,6 @@ export class AuthService {
             headers.append('Authorization', `Bearer ${this.token}`);
             this.http.get(this.oAuthUserUrl, {headers: headers}).subscribe(info => {
                 this.userInfo = JSON.parse(info._body);
-                console.log("UserInfo:", this.userInfo);
             });
         }
     }
@@ -126,8 +115,9 @@ export class AuthService {
         console.log('Token expiration timer set for %s seconds', seconds);
     }
 
-    public getEvent() {
-        return this.locationWatcher;
+    public subscribe(onNext: (value: any) => void, onThrow?: (exception: any) => void, onReturn?: () => void) {
+        return this.locationWatcher.subscribe(onNext, onThrow, onReturn);
+        // @TODO: must handle unsubscription when instance is broken down
     }
 
     public isAuthenticated() {

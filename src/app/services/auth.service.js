@@ -27,13 +27,6 @@ var AuthService = (function () {
         this.loopCount = 600;
         this.intervalLength = 100;
         this.locationWatcher = new core_1.EventEmitter();
-        this.subscription = this.getEvent().subscribe(function (val) {
-            console.log('Received:', val);
-        }, function (err) {
-            console.log('Received error:', err);
-        }, function () {
-            console.log('Completed');
-        });
     }
     AuthService.prototype.doLogin = function () {
         var _this = this;
@@ -92,7 +85,6 @@ var AuthService = (function () {
             headers.append('Authorization', "Bearer " + this.token);
             this.http.get(this.oAuthUserUrl, { headers: headers }).subscribe(function (info) {
                 _this.userInfo = JSON.parse(info._body);
-                console.log("UserInfo:", _this.userInfo);
             });
         }
     };
@@ -112,8 +104,8 @@ var AuthService = (function () {
         }, seconds * 1000);
         console.log('Token expiration timer set for %s seconds', seconds);
     };
-    AuthService.prototype.getEvent = function () {
-        return this.locationWatcher;
+    AuthService.prototype.subscribe = function (onNext, onThrow, onReturn) {
+        return this.locationWatcher.subscribe(onNext, onThrow, onReturn);
     };
     AuthService.prototype.isAuthenticated = function () {
         return this.authenticated;

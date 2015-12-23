@@ -13,21 +13,13 @@ export class ProtectedDirective {
             this.router.navigate(['PublicPage']);
         }
 
-        var sub = this.authService.getEvent().subscribe(
-            (val) => {
-                console.log('[protected] Received:', val);
-                if (!val.authenticated) {
-                    this.location.replaceState('/');
-                    this.router.navigate(['PublicPage']);
-                    sub.remove();
-                }
-            },
-            (err) => {
-                console.log('[protected] Received error:', err);
-            },
-            () => {
-                console.log('[protected] Completed');
+        var sub = this.authService.subscribe((val) => {
+            console.log('[protected] Received:', val);
+            if (!val.authenticated) {
+                this.location.replaceState('/');
+                this.router.navigate(['PublicPage']);
+                sub.remove();
             }
-        );
+        });
     }
 }

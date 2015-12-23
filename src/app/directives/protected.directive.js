@@ -20,17 +20,13 @@ var ProtectedDirective = (function () {
             this.location.replaceState('/');
             this.router.navigate(['PublicPage']);
         }
-        var sub = this.authService.getEvent().subscribe(function (val) {
+        var sub = this.authService.subscribe(function (val) {
             console.log('[protected] Received:', val);
             if (!val.authenticated) {
                 _this.location.replaceState('/');
                 _this.router.navigate(['PublicPage']);
                 sub.remove();
             }
-        }, function (err) {
-            console.log('[protected] Received error:', err);
-        }, function () {
-            console.log('[protected] Completed');
         });
     }
     ProtectedDirective = __decorate([
