@@ -16,19 +16,24 @@ var ProtectedDirective = (function () {
         this.authService = authService;
         this.router = router;
         this.location = location;
+        this.sub = null;
         if (!authService.isAuthenticated()) {
             this.location.replaceState('/');
             this.router.navigate(['PublicPage']);
         }
-        var sub = this.authService.subscribe(function (val) {
+        this.sub = this.authService.subscribe(function (val) {
             console.log('[protected] Received:', val);
             if (!val.authenticated) {
                 _this.location.replaceState('/');
                 _this.router.navigate(['PublicPage']);
-                sub.remove();
             }
         });
     }
+    ProtectedDirective.prototype.ngOnDestroy = function () {
+        if (this.sub != null) {
+            this.sub.unsubscribe();
+        }
+    };
     ProtectedDirective = __decorate([
         core_1.Directive({
             selector: '[protected]'
