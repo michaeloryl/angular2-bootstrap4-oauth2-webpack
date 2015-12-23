@@ -12,10 +12,10 @@ import {AuthService} from '../../services/auth.service';
     pipes: [],
     template: `
     <nav class="navbar navbar-fixed-top navbar-dark bg-success navbar-static-top">
-        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
             &#9776;
         </button>
-        <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+        <div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
             <a style="color:black" class="navbar-brand" href="#">A2B4O2OM</a>
             <ul class="nav navbar-nav">
                 <li class="nav-item">
@@ -27,8 +27,8 @@ import {AuthService} from '../../services/auth.service';
             </ul>
             <ul class="nav navbar-nav pull-xs-right">
                 <li class="nav-item">
-                    <a *ngIf="!authenticated" (click)="doLogin()" class="nav-link text-warning" href="#">Login</a>
-                    <a *ngIf="authenticated" (click)="doLogout()" class="nav-link text-warning" href="#">Logout</a>
+                    <button *ngIf="!authenticated" (click)="doLogin()" class="nav-link btn btn-danger-outline" href="#">Login</button>
+                    <button *ngIf="authenticated" (click)="doLogout()" class="nav-link btn btn-success-outline" href="#">Logout</button>
                 </li>
             </ul>
         </div>

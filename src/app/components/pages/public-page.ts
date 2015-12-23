@@ -20,17 +20,22 @@ import {Navbar} from '../../components/navbar/navbar';
     <navbar></navbar>
 </div>
 <div>I'm public: {{xsrfCookie}}</div>
+<div>I'm logged in: {{authenticated}}</div>
 <div class="row">
 <div class="col-xs-3">{{idCookie }}</div>
 </div>
 `
 })
 export class PublicPage {
-    constructor(private  cookies:CookieService) {
+    constructor(private  cookies:CookieService, private authService:AuthService) {
         //console.log("Public instantiated");
     }
 
     get idCookie() {
         return this.cookies.getCookie('id');
+    }
+
+    get authenticated() {
+        return this.authService.isAuthenticated();
     }
 }
