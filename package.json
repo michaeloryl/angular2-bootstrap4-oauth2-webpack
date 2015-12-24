@@ -16,18 +16,26 @@
     "reflect-metadata": "^0.1.2",
     "require": "^2.4.20",
     "rxjs": "^5.0.0-beta.0",
+    "tether": "^1.1.1",
     "traceur": "0.0.93",
     "zone.js": "^0.5.8"
   },
   "devDependencies": {
+    "css-loader": "^0.23.0",
     "del": "^2.0.2",
     "express": "^4.13.3",
+    "grunt": "^0.4.5",
+    "grunt-bump": "^0.7.0",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-grunt": "^0.2.4",
+    "grunt-string-replace": "^1.2.1",
+    "grunt-xmlpoke": "^0.8.0",
     "livereload": "^0.4.0",
     "style-loader": "^0.13.0",
+    "systemjs": "^0.19.8",
     "ts-loader": "^0.7.2",
     "tsd": "^0.6.5",
-    "typescript": "^1.7.3",
-    "systemjs": "^0.19.8",
-    "css-loader": "^0.23.0"
+    "typescript": "^1.7.3"
   }
 }
