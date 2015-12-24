@@ -10,10 +10,10 @@ import {Http, Headers} from 'angular2/http'
 
 @Injectable()
 export class AuthService {
-    private callbackTokenUrl:string = 'http://localhost:3000/auth/callback';
-    private oAuthBaseUrl:string = 'https://test.pennmutual.com/oauth2/';
-    private oAuthTokenUrl:string = `${this.oAuthBaseUrl}dialog/authorize?redirect_uri=${this.callbackTokenUrl}&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access`;
-    private oAuthUserUrl:string = `${this.oAuthBaseUrl}api/userinfo`;
+    private oAuthCallbackUrl:string;
+    private oAuthBaseUrl:string;
+    private oAuthTokenUrl:string;
+    private oAuthUserUrl:string;
     private authenticated:boolean = false;
     private token:string;
     private expires:any = 0;
@@ -24,11 +24,26 @@ export class AuthService {
     private loopCount = 600;
     private intervalLength = 100;
 
-    private locationWatcher = new EventEmitter();
+    private locationWatcher = new EventEmitter();  // @TODO: switch to RxJS Subject instead of EventEmitter
     private subscription;
 
     constructor(private windows:WindowService, private http:Http) {
+        var oAuth2Config = {
+            callbackUrl: 'http://localhost:3000/auth/callback',
+            baseUrl: 'https://test.pennmutual.com/oauth2',
+            userInfoUrl: `/api/userinfo`,
+            implicitGrantUrl: `/dialog/authorize?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__`,
+            clientId: 'a2o2demo',
+            scopes: 'pml_data_access+basic_access'
+        };
 
+        this.oAuthCallbackUrl = oAuth2Config.callbackUrl;
+        this.oAuthBaseUrl = oAuth2Config.baseUrl;
+        this.oAuthTokenUrl = (oAuth2Config.baseUrl + oAuth2Config.implicitGrantUrl)
+            .replace('__callbackUrl__', oAuth2Config.callbackUrl)
+            .replace('__clientId__', oAuth2Config.clientId)
+            .replace('__scopes__', oAuth2Config.scopes);
+        this.oAuthUserUrl = oAuth2Config.baseUrl + oAuth2Config.userInfoUrl;
     }
 
     public doLogin() {
@@ -80,11 +95,11 @@ export class AuthService {
     }
 
     private emitAuthStatus(success:boolean) {
-        this.locationWatcher.emit({success: success, authenticated: this.authenticated, token: this.token, expires: this.expires });
+        this.locationWatcher.emit({success: success, authenticated: this.authenticated, token: this.token, expires: this.expires});
     }
 
     public getSession() {
-        return {authenticated: this.authenticated, token: this.token, expires: this.expires };
+        return {authenticated: this.authenticated, token: this.token, expires: this.expires};
     }
 
     private fetchUserInfo() {
@@ -115,7 +130,7 @@ export class AuthService {
         console.log('Token expiration timer set for %s seconds', seconds);
     }
 
-    public subscribe(onNext: (value: any) => void, onThrow?: (exception: any) => void, onReturn?: () => void) {
+    public subscribe(onNext:(value:any) => void, onThrow?:(exception:any) => void, onReturn?:() => void) {
         return this.locationWatcher.subscribe(onNext, onThrow, onReturn);
         // @TODO: must handle unsubscription when instance is broken down
     }

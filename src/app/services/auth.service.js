@@ -14,10 +14,6 @@ var AuthService = (function () {
     function AuthService(windows, http) {
         this.windows = windows;
         this.http = http;
-        this.callbackTokenUrl = 'http://localhost:3000/auth/callback';
-        this.oAuthBaseUrl = 'https://test.pennmutual.com/oauth2/';
-        this.oAuthTokenUrl = this.oAuthBaseUrl + "dialog/authorize?redirect_uri=" + this.callbackTokenUrl + "&response_type=token&client_id=a2o2demo&scope=pml_data_access+basic_access";
-        this.oAuthUserUrl = this.oAuthBaseUrl + "api/userinfo";
         this.authenticated = false;
         this.expires = 0;
         this.userInfo = {};
@@ -27,6 +23,21 @@ var AuthService = (function () {
         this.loopCount = 600;
         this.intervalLength = 100;
         this.locationWatcher = new core_1.EventEmitter();
+        var oAuth2Config = {
+            callbackUrl: 'http://localhost:3000/auth/callback',
+            baseUrl: 'https://test.pennmutual.com/oauth2',
+            userInfoUrl: "/api/userinfo",
+            implicitGrantUrl: "/dialog/authorize?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
+            clientId: 'a2o2demo',
+            scopes: 'pml_data_access+basic_access'
+        };
+        this.oAuthCallbackUrl = oAuth2Config.callbackUrl;
+        this.oAuthBaseUrl = oAuth2Config.baseUrl;
+        this.oAuthTokenUrl = (oAuth2Config.baseUrl + oAuth2Config.implicitGrantUrl)
+            .replace('__callbackUrl__', oAuth2Config.callbackUrl)
+            .replace('__clientId__', oAuth2Config.clientId)
+            .replace('__scopes__', oAuth2Config.scopes);
+        this.oAuthUserUrl = oAuth2Config.baseUrl + oAuth2Config.userInfoUrl;
     }
     AuthService.prototype.doLogin = function () {
         var _this = this;
