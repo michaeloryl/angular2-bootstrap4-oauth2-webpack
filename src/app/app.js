@@ -18,6 +18,7 @@ var public_page_1 = require('./components/pages/public-page');
 var window_service_1 = require('./services/window.service');
 var auth_service_1 = require('./services/auth.service');
 var cookies_service_1 = require('./services/cookies.service');
+var loggedout_page_1 = require("./components/pages/loggedout-page");
 var App = (function () {
     function App() {
     }
@@ -28,6 +29,7 @@ var App = (function () {
             template: "\n<div class=\"container-fluid\">\n    <router-outlet></router-outlet>\n</div>\n"
         }),
         router_1.RouteConfig([
+            { path: '/loggedout', name: 'LoggedoutPage', component: loggedout_page_1.LoggedoutPage },
             { path: '/public', name: 'PublicPage', component: public_page_1.PublicPage },
             { path: '/protected', name: 'ProtectedPage', component: protected_page_1.ProtectedPage },
             { path: '/', redirectTo: ['PublicPage'] }

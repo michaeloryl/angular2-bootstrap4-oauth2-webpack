@@ -22,10 +22,9 @@ var ProtectedDirective = (function () {
             this.router.navigate(['PublicPage']);
         }
         this.sub = this.authService.subscribe(function (val) {
-            console.log('[protected] Received:', val);
             if (!val.authenticated) {
                 _this.location.replaceState('/');
-                _this.router.navigate(['PublicPage']);
+                _this.router.navigate(['LoggedoutPage']);
             }
         });
     }

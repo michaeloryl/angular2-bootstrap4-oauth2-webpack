@@ -14,6 +14,7 @@ import {WindowService} from './services/window.service';
 import {AuthService} from './services/auth.service';
 import {CookieService} from './services/cookies.service';
 import {CallbackComponent} from "./components/auth/callback";
+import {LoggedoutPage} from "./components/pages/loggedout-page";
 
 @Component({
     selector: 'app',
@@ -25,6 +26,7 @@ import {CallbackComponent} from "./components/auth/callback";
 `
 })
 @RouteConfig([
+    {path: '/loggedout', name: 'LoggedoutPage', component: LoggedoutPage},
     {path: '/public', name: 'PublicPage', component: PublicPage},
     {path: '/protected', name: 'ProtectedPage', component: ProtectedPage},
 //    {path: '/colin', name: 'ColinPage', component: ColinPage},

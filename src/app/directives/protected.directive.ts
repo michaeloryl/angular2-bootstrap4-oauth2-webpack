@@ -15,10 +15,9 @@ export class ProtectedDirective implements OnDestroy {
         }
 
         this.sub = this.authService.subscribe((val) => {
-            console.log('[protected] Received:', val);
             if (!val.authenticated) {
                 this.location.replaceState('/');
-                this.router.navigate(['PublicPage']);
+                this.router.navigate(['LoggedoutPage']);
             }
         });
     }
