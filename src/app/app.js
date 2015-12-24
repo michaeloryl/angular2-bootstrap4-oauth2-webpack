@@ -19,6 +19,7 @@ var window_service_1 = require('./services/window.service');
 var auth_service_1 = require('./services/auth.service');
 var cookies_service_1 = require('./services/cookies.service');
 var loggedout_page_1 = require("./components/pages/loggedout-page");
+require('rxjs/add/operator/map');
 var App = (function () {
     function App() {
     }

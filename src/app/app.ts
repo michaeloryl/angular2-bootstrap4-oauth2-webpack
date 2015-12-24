@@ -16,6 +16,9 @@ import {CookieService} from './services/cookies.service';
 import {CallbackComponent} from "./components/auth/callback";
 import {LoggedoutPage} from "./components/pages/loggedout-page";
 
+//import 'rxjs/Rx'; // this would import all RxJS operators
+import 'rxjs/add/operator/map';
+
 @Component({
     selector: 'app',
     directives: [Navbar, ROUTER_DIRECTIVES],
