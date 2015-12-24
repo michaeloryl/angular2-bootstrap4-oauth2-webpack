@@ -4,10 +4,11 @@
  * Date: 12/18/15
  * Time: 9:55 AM
  */
-import {Component} from "angular2/core";
+import {Component, OnDestroy} from "angular2/core";
 import {CookieService} from '../../services/cookies.service';
 import {WindowService} from '../../services/window.service';
 import {AuthService} from '../../services/auth.service';
+import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
 import {Navbar} from '../../components/navbar/navbar';
 
 @Component({
@@ -22,7 +23,26 @@ import {Navbar} from '../../components/navbar/navbar';
 <div><h2>You have been logged out.</h2></div>
 `
 })
-export class LoggedoutPage {
-    constructor() {
+export class LoggedoutPage implements OnDestroy{
+    private sub:any = null;
+
+    constructor(private authService:AuthService, private router:Router, private location:Location) {
+        if (authService.isAuthenticated()) {
+            this.location.replaceState('/');
+            this.router.navigate(['PublicPage']);
+        }
+
+        this.sub = this.authService.subscribe((val) => {
+            if (val.authenticated) {
+                this.location.replaceState('/');
+                this.router.navigate(['PublicPage']);
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.sub != null) {
+            this.sub.unsubscribe();
+        }
     }
 }

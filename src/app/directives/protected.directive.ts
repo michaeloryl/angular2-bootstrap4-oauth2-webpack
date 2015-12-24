@@ -8,6 +8,7 @@ import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
 
 export class ProtectedDirective implements OnDestroy {
     private sub:any = null;
+
     constructor(private authService:AuthService, private router:Router, private location:Location) {
         if (!authService.isAuthenticated()) {
             this.location.replaceState('/');
