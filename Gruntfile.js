@@ -26,6 +26,22 @@ module.exports = function (grunt) {
             bootstrapJs: {
                 src: 'bootstrap/dist/js/bootstrap.js',
                 dest: 'src/js/bootstrap.js'
+            },
+            configlocal: {
+                src: 'config/config.local.json',
+                dest: 'src/config.json'
+            },
+            configdev: {
+                src: 'config/config.dev.json',
+                dest: 'src/config.json'
+            },
+            configtest: {
+                src: 'config/config.test.json',
+                dest: 'src/config.json'
+            },
+            configprod: {
+                src: 'config/config.prod.json',
+                dest: 'src/config.json'
             }
         }
     });
@@ -57,6 +73,14 @@ module.exports = function (grunt) {
             'string-replace:about',
             'xmlpoke:versionname',
             'bump-commit'
+        ])
+    });
+
+    grunt.registerTask('env', 'change environment to run the Angular app', function (target) {
+        target = target || 'dev';
+
+        grunt.task.run([
+            'copy:config' + target
         ])
     });
 

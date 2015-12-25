@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://test.pennmutual.com/oauth2",
+  "baseUrl": "http://localhost:3001",
   "callbackUrl": "http://localhost:3000/auth/callback",
   "userInfoUrl": "/api/userinfo",
   "implicitGrantUrl": "/dialog/authorize?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
