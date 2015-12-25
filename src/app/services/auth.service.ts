@@ -59,12 +59,12 @@ export class AuthService {
                     //console.log('Error:', e);
                 }
                 if (href != null) {
+                    // @TODO: need a better way to parse out access_token, token_type, expires_in, score, and state parameters from the fragment
                     var re = /.*\/auth\/callback#access_token=(.*)&expires_in=(.*)&token_type=Bearer/;
                     var found = href.match(re);
                     if (found) {
                         clearInterval(this.intervalId);
                         var expiresSeconds = Number(found[2]);
-
                         this.authenticated = true;
                         this.token = found[1];
                         this.startExpiresTimer(expiresSeconds);
@@ -86,7 +86,6 @@ export class AuthService {
         this.expires = 0;
         this.token = null;
         this.emitAuthStatus(true);
-        // @TODO: invalidate the token?
         console.log('Session has expired');
     }
 
@@ -128,7 +127,6 @@ export class AuthService {
 
     public subscribe(onNext:(value:any) => void, onThrow?:(exception:any) => void, onReturn?:() => void) {
         return this.locationWatcher.subscribe(onNext, onThrow, onReturn);
-        // @TODO: must handle unsubscription when instance is broken down
     }
 
     public isAuthenticated() {
