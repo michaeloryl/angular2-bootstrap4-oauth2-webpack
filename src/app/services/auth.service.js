@@ -55,13 +55,16 @@ var AuthService = (function () {
                 catch (e) {
                 }
                 if (href != null) {
-                    var re = /.*\/auth\/callback#access_token=(.*)&expires_in=(.*)&token_type=Bearer/;
+                    var re = /#access_token=(.*)/;
                     var found = href.match(re);
                     if (found) {
                         clearInterval(_this.intervalId);
-                        var expiresSeconds = Number(found[2]);
-                        _this.authenticated = true;
-                        _this.token = found[1];
+                        var parsed = _this.parse(href.substr(_this.oAuthBaseUrl.length + 1));
+                        var expiresSeconds = parsed.expires_in || 1800;
+                        _this.token = parsed.access_token;
+                        if (_this.token) {
+                            _this.authenticated = true;
+                        }
                         _this.startExpiresTimer(expiresSeconds);
                         _this.expires = new Date();
                         _this.expires = _this.expires.setSeconds(_this.expires.getSeconds() + expiresSeconds);
@@ -119,6 +122,33 @@ var AuthService = (function () {
     AuthService.prototype.isAuthenticated = function () {
         return this.authenticated;
     };
+    AuthService.prototype.parse = function (str) {
+        if (typeof str !== 'string') {
+            return {};
+        }
+        str = str.trim().replace(/^(\?|#|&)/, '');
+        if (!str) {
+            return {};
+        }
+        return str.split('&').reduce(function (ret, param) {
+            var parts = param.replace(/\+/g, ' ').split('=');
+            var key = parts.shift();
+            var val = parts.length > 0 ? parts.join('=') : undefined;
+            key = decodeURIComponent(key);
+            val = val === undefined ? null : decodeURIComponent(val);
+            if (!ret.hasOwnProperty(key)) {
+                ret[key] = val;
+            }
+            else if (Array.isArray(ret[key])) {
+                ret[key].push(val);
+            }
+            else {
+                ret[key] = [ret[key], val];
+            }
+            return ret;
+        }, {});
+    };
+    ;
     AuthService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [window_service_1.WindowService, http_1.Http])

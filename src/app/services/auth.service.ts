@@ -29,7 +29,7 @@ export class AuthService {
 
     constructor(private windows:WindowService, private http:Http) {
         http.get('config.json')
-            .map(res => res.json() )
+            .map(res => res.json())
             .subscribe(config => {
                 this.oAuthCallbackUrl = config.callbackUrl;
                 this.oAuthBaseUrl = config.baseUrl;
@@ -59,21 +59,25 @@ export class AuthService {
                     //console.log('Error:', e);
                 }
                 if (href != null) {
-                    // @TODO: need a better way to parse out access_token, token_type, expires_in, score, and state parameters from the fragment
-                    var re = /.*\/auth\/callback#access_token=(.*)&expires_in=(.*)&token_type=Bearer/;
+                    var re = /#access_token=(.*)/;
                     var found = href.match(re);
                     if (found) {
                         clearInterval(this.intervalId);
-                        var expiresSeconds = Number(found[2]);
-                        this.authenticated = true;
-                        this.token = found[1];
+                        var parsed = this.parse(href.substr(this.oAuthBaseUrl.length + 1));
+                        var expiresSeconds = parsed.expires_in || 1800;
+
+                        this.token = parsed.access_token;
+                        if (this.token) {
+                            this.authenticated = true;
+                        }
+
                         this.startExpiresTimer(expiresSeconds);
                         this.expires = new Date();
                         this.expires = this.expires.setSeconds(this.expires.getSeconds() + expiresSeconds);
+
                         this.windowHandle.close();
                         this.emitAuthStatus(true);
                         this.fetchUserInfo();
-                        // @TODO: validate access token
                     }
                 }
             }
@@ -132,6 +136,43 @@ export class AuthService {
     public isAuthenticated() {
         return this.authenticated;
     }
+
+    private parse(str) { // lifted from https://github.com/sindresorhus/query-string
+        if (typeof str !== 'string') {
+            return {};
+        }
+
+        str = str.trim().replace(/^(\?|#|&)/, '');
+
+        if (!str) {
+            return {};
+        }
+
+        return str.split('&').reduce(function (ret, param) {
+            var parts = param.replace(/\+/g, ' ').split('=');
+            // Firefox (pre 40) decodes `%3D` to `=`
+            // https://github.com/sindresorhus/query-string/pull/37
+            var key = parts.shift();
+            var val = parts.length > 0 ? parts.join('=') : undefined;
+
+            key = decodeURIComponent(key);
+
+            // missing `=` should be `null`:
+            // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+            val = val === undefined ? null : decodeURIComponent(val);
+
+            if (!ret.hasOwnProperty(key)) {
+                ret[key] = val;
+            } else if (Array.isArray(ret[key])) {
+                ret[key].push(val);
+            } else {
+                ret[key] = [ret[key], val];
+            }
+
+            return ret;
+        }, {});
+    };
+
 
 }
 
