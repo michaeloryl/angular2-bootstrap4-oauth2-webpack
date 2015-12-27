@@ -17,7 +17,7 @@ export class AuthService {
     private authenticated:boolean = false;
     private token:string;
     private expires:any = 0;
-    private userInfo:Object = {};
+    private userInfo:any = {};
     private windowHandle:any = null;
     private intervalId:any = null;
     private expiresTimerId:any = null;
@@ -105,8 +105,10 @@ export class AuthService {
         if (this.token != null) {
             var headers = new Headers();
             headers.append('Authorization', `Bearer ${this.token}`);
-            this.http.get(this.oAuthUserUrl, {headers: headers}).subscribe(info => {
-                this.userInfo = JSON.parse(info._body);
+            this.http.get(this.oAuthUserUrl, {headers: headers})
+                .map(res => res.json())
+                .subscribe(info => {
+                this.userInfo = info;
             });
         }
     }
