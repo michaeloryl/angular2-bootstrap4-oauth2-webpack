@@ -4,6 +4,7 @@ var livereload = require('livereload');
 var app = express();
 
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
+app.use('/__build__', express.static(__dirname + '/__build__'));
 app.get('/auth/callback', function(req, res) {
   console.log("Request cookies: %j", req.cookies);
   console.log("Request originalUrl: %j", req.originalUrl);
