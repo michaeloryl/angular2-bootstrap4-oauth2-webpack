@@ -95,8 +95,10 @@ var AuthService = (function () {
         if (this.token != null) {
             var headers = new http_1.Headers();
             headers.append('Authorization', "Bearer " + this.token);
-            this.http.get(this.oAuthUserUrl, { headers: headers }).subscribe(function (info) {
-                _this.userInfo = JSON.parse(info._body);
+            this.http.get(this.oAuthUserUrl, { headers: headers })
+                .map(function (res) { return res.json(); })
+                .subscribe(function (info) {
+                _this.userInfo = info;
             });
         }
     };
