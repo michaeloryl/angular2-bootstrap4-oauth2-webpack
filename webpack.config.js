@@ -18,7 +18,7 @@ module.exports = {
 
     entry: {
 //        'vendor': './src/vendor.ts',
-        'vendor': './src/app/vendor.ts',
+        'vendor': './src/vendor.ts',
         'app': './src/app/app.ts' // our angular app
     },
 
@@ -32,6 +32,11 @@ module.exports = {
 
     resolve: {
         // ensure loader extensions match
+        alias: { // failed attempt to import into vendor.ts
+            jquery: path.join(__dirname, 'src/lib/jquery/jquery.min.js'),
+            'js.cookie': path.join(__dirname, 'src/lib/js.cookie/js.cookie.js'),
+            bootstrap: path.join(__dirname, 'src/lib/bootstrap/bootstrap.js')
+        },
         extensions: ['', '.ts', '.js', '.json', '.css', '.html']
     },
 
@@ -60,9 +65,9 @@ module.exports = {
             {test: /\.css$/, loader: 'raw-loader'},
 
             // support for .html as raw text
-            {test: /\.html$/, loader: 'raw-loader'},
+            {test: /\.html$/, loader: 'raw-loader'}
         ],
-        noParse: [/angular2\/bundles\/.+/]
+        noParse: [/angular2-polyfills/]
     },
 
     plugins: [
@@ -79,7 +84,7 @@ module.exports = {
     // our Webpack Development Server config
     devServer: {
         historyApiFallback: true,
-        contentBase: 'src/public',
+        contentBase: 'src',
         publicPath: '/__build__'
     }
 };
