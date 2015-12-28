@@ -38,10 +38,9 @@ var PublicPage = (function () {
             providers: [],
             template: "\n<div class=\"pos-f-t\">\n    <navbar></navbar>\n</div>\n<div>I'm public: {{xsrfCookie}}</div>\n<div>I'm logged in: {{authenticated}}</div>\n<div class=\"row\">\n<div class=\"col-xs-3\">{{idCookie }}</div>\n</div>\n"
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof cookies_service_1.CookieService !== 'undefined' && cookies_service_1.CookieService) === 'function' && _a) || Object, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [cookies_service_1.CookieService, auth_service_1.AuthService])
     ], PublicPage);
     return PublicPage;
-    var _a;
 })();
 exports.PublicPage = PublicPage;
 //# sourceMappingURL=public-page.js.map

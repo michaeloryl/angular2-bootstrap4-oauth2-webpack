@@ -6,7 +6,8 @@
   "main": "",
   "scripts": {
     "start": "node server",
-    "tsc": "tsc -w -p src --sourceMap"
+    "tsc": "tsc -w -p src --sourceMap",
+    "webpack": "webpack-dev-server --progress --colors --content-base src --port 3000 --display-cached --display-error-details --inline"
   },
   "dependencies": {
     "angular2": "^2.0.0-beta.0",
