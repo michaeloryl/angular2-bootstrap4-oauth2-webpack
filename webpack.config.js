@@ -27,7 +27,8 @@ module.exports = {
         path: root('__build__'),
         filename: '[name].js',
         sourceMapFilename: '[name].map',
-        chunkFilename: '[id].chunk.js'
+        chunkFilename: '[id].chunk.js',
+        pathinfo: true
     },
 
     resolve: {
@@ -83,9 +84,15 @@ module.exports = {
     },
     // our Webpack Development Server config
     devServer: {
-        historyApiFallback: true,
         contentBase: 'src',
-        publicPath: '/__build__'
+        publicPath: '/__build__',
+        colors: true,
+        progress: true,
+        port: 3000,
+        displayCached: true,
+        displayErrorDetails: true,
+        inline: true
+        //hot: true
     }
 };
 
