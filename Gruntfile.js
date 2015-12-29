@@ -25,7 +25,7 @@ module.exports = function (grunt) {
             },
             bootstrapJs: {
                 src: 'bootstrap/dist/js/bootstrap.js',
-                dest: 'src/js/bootstrap.js'
+                dest: 'src/lib/bootstrap/bootstrap.js'
             },
             configlocal: {
                 src: 'config/config.local.json',
