@@ -90,7 +90,7 @@ export class AuthService {
         this.expires = 0;
         this.token = null;
         this.emitAuthStatus(true);
-        console.log('Session has expired');
+        console.log('Session has been cleared');
     }
 
     private emitAuthStatus(success:boolean) {
@@ -126,6 +126,7 @@ export class AuthService {
             clearTimeout(this.expiresTimerId);
         }
         this.expiresTimerId = setTimeout(() => {
+            console.log('Session has expired');
             this.doLogout();
         }, seconds * 1000); // seconds * 1000
         console.log('Token expiration timer set for %s seconds', seconds);
