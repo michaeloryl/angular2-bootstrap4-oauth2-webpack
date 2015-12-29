@@ -12,5 +12,6 @@
     "node_modules",
     "bower_components",
     "bootstrap"
-  ]
+  ],
+  "files": []
 }
