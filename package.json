@@ -20,7 +20,7 @@
     "zone.js": "^0.5.8"
   },
   "devDependencies": {
-    "css-loader": "^0.23.0",
+    "css-loader": "^0.23.1",
     "del": "^2.0.2",
     "express": "^4.13.3",
     "grunt": "^0.4.5",
