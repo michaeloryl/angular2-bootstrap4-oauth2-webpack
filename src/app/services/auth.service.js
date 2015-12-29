@@ -82,7 +82,7 @@ var AuthService = (function () {
         this.expires = 0;
         this.token = null;
         this.emitAuthStatus(true);
-        console.log('Session has expired');
+        console.log('Session has been cleared');
     };
     AuthService.prototype.emitAuthStatus = function (success) {
         this.locationWatcher.emit({ success: success, authenticated: this.authenticated, token: this.token, expires: this.expires });
@@ -114,6 +114,7 @@ var AuthService = (function () {
             clearTimeout(this.expiresTimerId);
         }
         this.expiresTimerId = setTimeout(function () {
+            console.log('Session has expired');
             _this.doLogout();
         }, seconds * 1000);
         console.log('Token expiration timer set for %s seconds', seconds);
