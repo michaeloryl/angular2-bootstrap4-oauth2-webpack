@@ -79,7 +79,7 @@ module.exports = {
 
     // Other module loader config
     tslint: {
-        emitErrors: false,
+        emitErrors: true,
         failOnHint: false
     },
     // our Webpack Development Server config
@@ -92,7 +92,6 @@ module.exports = {
         displayCached: true,
         displayErrorDetails: true,
         inline: true
-        //hot: true
     }
 };
 
