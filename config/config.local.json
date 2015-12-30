@@ -1,8 +1,8 @@
 {
-  "baseUrl": "http://localhost:3001",
   "callbackUrl": "http://localhost:3000/auth/callback",
-  "userInfoUrl": "/api/userinfo",
-  "implicitGrantUrl": "/dialog/authorize?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
+  "userInfoUrl": "http://localhost:3001/api/userinfo",
+  "userInfoNameField": "name",
+  "implicitGrantUrl": "http://localhost:3001/dialog/authorize?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
   "clientId": "a2o2demo",
   "scopes": "pml_data_access+basic_access"
 }
