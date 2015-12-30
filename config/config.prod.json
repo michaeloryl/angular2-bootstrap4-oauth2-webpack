@@ -1,8 +1,8 @@
 {
   "callbackUrl": "http://localhost:3000/auth/callback",
-  "userInfoUrl": "https://home2.pennmutual.com/oauth2/api/userinfo",
-  "userInfoNameField": "name",
-  "implicitGrantUrl": "https://home2.pennmutual.com/oauth2/dialog/authorize?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
+  "userInfoUrl": "http://yourprodserver.com/oauth2/userinfo",
+  "userInfoNameField": "nameOfFullnameField",
+  "implicitGrantUrl": "https://yourprodserver.com/oauth2/auth?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
   "clientId": "a2o2demo",
-  "scopes": "pml_data_access+basic_access"
+  "scopes": "yourscopes+gohere"
 }
