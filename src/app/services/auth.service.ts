@@ -64,7 +64,7 @@ export class AuthService {
                     if (found) {
                         clearInterval(this.intervalId);
                         var parsed = this.parse(href.substr(this.oAuthBaseUrl.length + 1));
-                        var expiresSeconds = parsed.expires_in || 1800;
+                        var expiresSeconds = Number(parsed.expires_in) || 1800;
 
                         this.token = parsed.access_token;
                         if (this.token) {
@@ -108,8 +108,10 @@ export class AuthService {
             this.http.get(this.oAuthUserUrl, {headers: headers})
                 .map(res => res.json())
                 .subscribe(info => {
-                this.userInfo = info;
-            });
+                    this.userInfo = info;
+                }, err => {
+                    console.error("Failed to fetch user info:", err);
+                });
         }
     }
 
