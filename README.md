@@ -1,6 +1,6 @@
 # A2B4O2OM
 #### Angular 2, Bootstrap 4, OAuth2, oh my!
-Angular 2 skeleton app with Bootstrap 4, OAuth2 integration, all packaged up and served with Webpack
+Angular 2 skeleton app with Bootstrap 4 and OAuth2 integration, all packaged up and served with Webpack
 
 ## Introduction
 
