@@ -27,6 +27,10 @@ module.exports = function (grunt) {
                 src: 'bootstrap/dist/js/bootstrap.js',
                 dest: 'src/lib/bootstrap/bootstrap.js'
             },
+            configgoogle: {
+                src: 'config/config.google.json',
+                dest: 'src/config.json'
+            },
             configlocal: {
                 src: 'config/config.local.json',
                 dest: 'src/config.json'

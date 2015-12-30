@@ -11,9 +11,9 @@ import {Http, Headers} from 'angular2/http'
 @Injectable()
 export class AuthService {
     private oAuthCallbackUrl:string;
-    private oAuthBaseUrl:string;
     private oAuthTokenUrl:string;
     private oAuthUserUrl:string;
+    private oAuthUserNameField:string;
     private authenticated:boolean = false;
     private token:string;
     private expires:any = 0;
@@ -32,13 +32,13 @@ export class AuthService {
             .map(res => res.json())
             .subscribe(config => {
                 this.oAuthCallbackUrl = config.callbackUrl;
-                this.oAuthBaseUrl = config.baseUrl;
-                this.oAuthTokenUrl = config.baseUrl + config.implicitGrantUrl;
+                this.oAuthTokenUrl = config.implicitGrantUrl;
                 this.oAuthTokenUrl = this.oAuthTokenUrl
                     .replace('__callbackUrl__', config.callbackUrl)
                     .replace('__clientId__', config.clientId)
                     .replace('__scopes__', config.scopes);
-                this.oAuthUserUrl = config.baseUrl + config.userInfoUrl;
+                this.oAuthUserUrl = config.userInfoUrl;
+                this.oAuthUserNameField = config.userInfoNameField;
             })
     }
 
@@ -59,11 +59,12 @@ export class AuthService {
                     //console.log('Error:', e);
                 }
                 if (href != null) {
-                    var re = /#access_token=(.*)/;
+                    var re = /access_token=(.*)/;
                     var found = href.match(re);
                     if (found) {
+                        console.log("Callback URL:", href);
                         clearInterval(this.intervalId);
-                        var parsed = this.parse(href.substr(this.oAuthBaseUrl.length + 1));
+                        var parsed = this.parse(href.substr(this.oAuthCallbackUrl.length + 1));
                         var expiresSeconds = Number(parsed.expires_in) || 1800;
 
                         this.token = parsed.access_token;
@@ -120,7 +121,7 @@ export class AuthService {
     }
 
     public getUserName() {
-        return this.userInfo ? this.userInfo.name : null;
+        return this.userInfo ? this.userInfo[this.oAuthUserNameField] : null;
     }
 
     private startExpiresTimer(seconds:number) {
@@ -131,7 +132,7 @@ export class AuthService {
             console.log('Session has expired');
             this.doLogout();
         }, seconds * 1000); // seconds * 1000
-        console.log('Token expiration timer set for %s seconds', seconds);
+        console.log('Token expiration timer set for', seconds, "seconds");
     }
 
     public subscribe(onNext:(value:any) => void, onThrow?:(exception:any) => void, onReturn?:() => void) {
