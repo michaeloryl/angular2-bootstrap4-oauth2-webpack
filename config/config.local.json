@@ -1,0 +1,8 @@
+{
+  "callbackUrl": "http://localhost:3000/auth/callback",
+  "userInfoUrl": "http://localhost:3001/userinfo",
+  "userInfoNameField": "nameOfFullnameField",
+  "implicitGrantUrl": "http://localhost:3001/auth?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
+  "clientId": "a2o2demo",
+  "scopes": "yourscopes+gohere"
+}
