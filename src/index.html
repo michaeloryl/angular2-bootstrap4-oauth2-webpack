@@ -1,9 +1,10 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <base href="/">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Angular 2, Bootstrap 4, and OAuth2, oh my!</title>
 
     <!-- // These are from the pre-Webpack build process and required by Bootstrap 4
@@ -17,8 +18,8 @@
 <app></app>
 
 <!-- // Required by Bootstrap 4 and the Cookie service in the application -->
-<script src="lib/js.cookie/js.cookie.js"></script>
 <!-- // From pre-Webpack build process
+<script src="lib/js.cookie/js.cookie.js"></script>
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/bootstrap/bootstrap.js"></script>
 -->
@@ -47,6 +48,18 @@
 <script src="../__build__/common.js"></script>
 <script src="../__build__/vendor.js"></script>
 <script src="../__build__/app.js"></script>
-
+<!--<script> // this deals with a specific bug in IE 10 running on Windows Phone 8 (for both of you people actually using it)
+    // Copyright 2014-2015 Twitter, Inc.
+    // Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+    if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement('style')
+        msViewportStyle.appendChild(
+                document.createTextNode(
+                        '@-ms-viewport{width:auto!important}'
+                )
+        )
+        document.head.appendChild(msViewportStyle)
+    }
+</script>-->
 </body>
 </html>

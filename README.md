@@ -55,6 +55,35 @@ grunt env:google
 
 Use the Google environment if you just want to see OAuth2 in action and you don't have your own server configured.  The other files will have to be updated by you, the user, to work with your own OAuth2 infrastructure.
 
+## Configuring for OAuth2
+
+You'll find several config files in the `/config` folder of the project.  The `config.local.json` file, for example, looks similar to the following:
+
+```
+{
+  "callbackUrl": "http://localhost:3000/auth/callback",
+  "implicitGrantUrl": "http://localhost:3001/auth?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
+  "userInfoUrl": "http://localhost:3001/userinfo",
+  "userInfoNameField": "nameOfFullnameField",
+  "clientId": "a2o2demo",
+  "scopes": "yourscopes+gohere"
+}
+```
+It is configured as if you had an OAuth2 server running on port 3001 of your local machine.  I'll explain what each entry in the file means.
+
+`callbackUrl` is the URL that the OAuth2 server should redirect the user to so that our application can fetch the access token from the browser window.  This **must** be using the same domain, subdomain, protocol, and port as your main A2B4O2OM application, otherwise the app will be restricted by the browser from accessing the popup browser window.
+
+`implicitGrantUrl` is the main authorization URL of the OAuth2 server in use.  The `__callbackUrl__`, `__clientId__`, and `__scopes__` tokens in the value get replaced with the actual values you configure in this JSON config file.  This allows you to keep things easy to read while still allowing you to change the format of the URL easily.
+
+A2B4O2OM is configured for using an OAuth2 Implicit grant type request, which means it gets an access token directly and has no option for a refresh token.  Storing refresh tokens and client secrets in a client-side JavaScript application is a **very bad thing**, which is why we don't use the Authorization Code grant type.
+
+`userInfoUrl` is the OAuth2 URL to use to gain access to a user's basic information.  The access token will be inserted into the headers of the request as a bearer token in an Authorization header.
+
+`userInfoNameField` is the name of the full name field in the JSON payload returned by the `userInfoUrl` endpoint.  Google calls it 'displayName', my personal server calls it 'name'.  Hence the reason to have it configurable.
+
+`clientId` is the ID assigned to your new application by the OAuth2 administrator.  There's no need for the associated client secret (password) in our use case.
+
+`scopes` is the list of '+' separated scopes of data you are requesting.  This will be different for each OAuth2 server you come across, most likely.
 ## Deploying the code
 
 If you wish to deploy your application to a real web server, production or otherwise, you can use the appropriate grunt tasks to do so.  To build a test/dev build of the site, run the following command:
@@ -70,3 +99,57 @@ grunt build:prod
 ```
 
 Note that the prod build command will also do a 'grunt env:prod' to copy `config/config.prod.json` to `src/config.json` before running webpack and building the ZIP file.  If you wish to continue in a non-prod environment after building for prod, you will need to execute the appropriate Grunt `env` command (`env:dev`, `env:local`, `env:test`)
+
+## Customizing Bootstrap 4
+
+By default, A2B4O2OM ships with a slightly customized version of Bootstrap 4 that differs from what ships in the NPM.  That's why you will find it residing in the separate `/bootstrap` folder instead of in `/NODE_MODULES`.
+
+The changes can be found in `/bootstrap/scss/_variables.scss`, which is the main config file used when Building Bootstrap 4.  The changes I've made are the following.
+
+The first four modifications change the general look of the framework.  Shadows are necessary for the navbar's look to work, and the others are just things I find generally pleasing.
+
+```
+$enable-shadows:            true !default;  // was false
+$enable-gradients:          true !default;  // was false
+$enable-transitions:        true !default;  // was false
+$enable-hover-media-query:  true !default;  // was false
+```
+The other two modifications change what the framework considers to be a small sized screen so that a large smartphone in landscape mode won't be forced to make use of the collapsing menu system in the navbar.
+
+```
+$grid-breakpoints: (
+  // Extra small screen / phone
+  xs: 0,
+  // Small screen / phone
+  sm: 480px,                                // was 544
+  // Medium screen / tablet
+  md: 768px,
+  // Large screen / desktop
+  lg: 992px,
+  // Extra large screen / wide desktop
+  xl: 1200px
+) !default;
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-widths: (
+  sm: 434px,                               // was 576
+  md: 720px,
+  lg: 940px,
+  xl: 1140px
+) !default;
+```
+
+You will find two files named `_variables-ORIGINAL.scss` and `_variables-CUSTOM.scss` in the same folder that will allow you to compare and easily copy the default and custom settings over top of `_variables.scss`.
+
+## Building Bootstrap 4
+
+Once you have it customized, you can use the main project's Grunt setup to build Bootstrap 4 and to copy the needed CSS and JS files into the main A2B4O2OM application.  The build command to run is:
+
+```
+grunt bootstrap
+```
+
+Once complete, you will see any modifications you made to `/bootstrap/scss/_variables.scss` (or elsewhere) reflected in `/src/lib/bootstrap/bootstrap.js` and `/src/css/bootstrap.css` where Webpack will pick them up.

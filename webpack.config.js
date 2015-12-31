@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+var ProvidePlugin = webpack.ProvidePlugin;
 //var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
@@ -51,7 +52,12 @@ module.exports = {
 
     plugins: [
         new CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js', minChunks: Infinity}),
-        new CommonsChunkPlugin({name: 'common', filename: 'common.js', minChunks: 2, chunks: ['app', 'vendor']})
+        new CommonsChunkPlugin({name: 'common', filename: 'common.js', minChunks: 2, chunks: ['app', 'vendor']}),
+        new ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            Cookies: "js-cookie"
+        })
 //        new UglifyJsPlugin() // use for production
     ],
 
