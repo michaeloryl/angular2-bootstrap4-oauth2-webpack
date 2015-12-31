@@ -48,6 +48,18 @@
 <script src="../__build__/common.js"></script>
 <script src="../__build__/vendor.js"></script>
 <script src="../__build__/app.js"></script>
-
+<!--<script> // this deals with a specific bug in IE 10 running on Windows Phone 8 (for both of you people actually using it)
+    // Copyright 2014-2015 Twitter, Inc.
+    // Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+    if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement('style')
+        msViewportStyle.appendChild(
+                document.createTextNode(
+                        '@-ms-viewport{width:auto!important}'
+                )
+        )
+        document.head.appendChild(msViewportStyle)
+    }
+</script>-->
 </body>
 </html>
