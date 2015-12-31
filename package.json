@@ -1,6 +1,6 @@
 {
   "name": "angular2-bootstrap4-oauth2-ohmy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A skeleton Angular2, Bootstrap 4, OAuth2 application using webpack (oh my!)",
   "author": "Michael Oryl",
   "scripts": {
