@@ -1,11 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-//var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
     devtool: 'source-map',
-    debug: true, // set false in production
+    debug: false, // set false in production
 
     entry: {
         'vendor': './src/vendor.ts', // third party dependencies
@@ -51,13 +51,13 @@ module.exports = {
 
     plugins: [
         new CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js', minChunks: Infinity}),
-        new CommonsChunkPlugin({name: 'common', filename: 'common.js', minChunks: 2, chunks: ['app', 'vendor']})
-//        new UglifyJsPlugin() // use for production
+        new CommonsChunkPlugin({name: 'common', filename: 'common.js', minChunks: 2, chunks: ['app', 'vendor']}),
+        new UglifyJsPlugin() // use for production
     ],
 
     // Other module loader config
     tslint: {
-        emitErrors: true,
+        emitErrors: false,
         failOnHint: false
     },
     // our Webpack Development Server config
