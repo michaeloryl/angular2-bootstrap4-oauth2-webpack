@@ -118,6 +118,7 @@ module.exports = function (grunt) {
 
         if (target === 'prod') {
             grunt.task.run([
+                'env:prod',
                 'shell:webpackProd',
                 'compress'
             ])
