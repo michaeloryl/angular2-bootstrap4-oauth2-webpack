@@ -18,6 +18,29 @@ module.exports = function (grunt) {
                 tasks: ['dist']
             }
         },
+        compress: {
+            main: {
+                options: {
+                    archive: 'site.zip'
+                },
+                files: [
+                    {expand: true, cwd: 'src/', src: ['index.html', 'config.json'], dest: ''},
+                    {expand: true, cwd: 'src/', src: 'lib/**', dest: ''},
+                    {expand: true, src: '__build__/**', dest: ''}
+                ]
+            }
+        },
+        shell: {
+            options: {
+                stderr: false
+            },
+            webpack: {
+                command: 'webpack --config webpack.config.js',
+            },
+            webpackProd: {
+                command: 'webpack --config webpack.prod.config.js'
+            }
+        },
         copy: {
             bootstrapCss: {
                 src: 'bootstrap/dist/css/bootstrap.css',
@@ -56,6 +79,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-compress');
+    require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('bootstrap', 'build bootstrap and copy files into project', function (target) {
         grunt.task.run(['grunt:bootstrap', 'copy:bootstrapCss', 'copy:bootstrapJs']);
@@ -86,6 +111,23 @@ module.exports = function (grunt) {
         grunt.task.run([
             'copy:config' + target
         ])
+    });
+
+    grunt.registerTask('build', 'change environment to run the Angular app', function (target) {
+        target = target || 'dev';
+
+        if (target === 'prod') {
+            grunt.task.run([
+                'shell:webpackProd',
+                'compress'
+            ])
+        } else {
+            grunt.task.run([
+                'shell:webpack',
+                'compress'
+            ])
+        }
+
     });
 
 };
