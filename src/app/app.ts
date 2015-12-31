@@ -9,7 +9,6 @@ import {Observable} from 'rxjs/Observable';
 import {Navbar} from './components/navbar/navbar';
 import {ProtectedPage} from './components/pages/protected-page'
 import {PublicPage} from './components/pages/public-page'
-//import {ColinPage} from './components/pages/colin-page'
 import {WindowService} from './services/window.service';
 import {AuthService} from './services/auth.service';
 import {CookieService} from './services/cookies.service';
