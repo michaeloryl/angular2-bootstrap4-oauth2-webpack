@@ -70,3 +70,57 @@ grunt build:prod
 ```
 
 Note that the prod build command will also do a 'grunt env:prod' to copy `config/config.prod.json` to `src/config.json` before running webpack and building the ZIP file.  If you wish to continue in a non-prod environment after building for prod, you will need to execute the appropriate Grunt `env` command (`env:dev`, `env:local`, `env:test`)
+
+## Customizing Bootstrap 4
+
+By default, A2B4O2OM ships with a slightly customized version of Bootstrap 4 that differs from what ships in the NPM.  That's why you will find it residing in the separate `/bootstrap` folder instead of in `/NODE_MODULES`.
+
+The changes can be found in `/bootstrap/scss/_variables.scss`, which is the main config file used when Building Bootstrap 4.  The changes I've made are the following.
+
+The first four modifications change the general look of the framework.  Shadows are necessary for the navbar's look to work, and the others are just things I find generally pleasing.
+
+```
+$enable-shadows:            true !default;  // was false
+$enable-gradients:          true !default;  // was false
+$enable-transitions:        true !default;  // was false
+$enable-hover-media-query:  true !default;  // was false
+```
+The other two modifications change what the framework considers to be a small sized screen so that a large smartphone in landscape mode won't be forced to make use of the collapsing menu system in the navbar.
+
+```
+$grid-breakpoints: (
+  // Extra small screen / phone
+  xs: 0,
+  // Small screen / phone
+  sm: 480px,                                // was 544
+  // Medium screen / tablet
+  md: 768px,
+  // Large screen / desktop
+  lg: 992px,
+  // Extra large screen / wide desktop
+  xl: 1200px
+) !default;
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-widths: (
+  sm: 434px,                               // was 576
+  md: 720px,
+  lg: 940px,
+  xl: 1140px
+) !default;
+```
+
+You will find two files named `_variables-ORIGINAL.scss` and `_variables-CUSTOM.scss` in the same folder that will allow you to compare and easily copy the default and custom settings over top of `_variables.scss`.
+
+## Building Bootstrap 4
+
+Once you have it customized, you can use the main project's Grunt setup to build Bootstrap 4 and to copy the needed CSS and JS files into the main A2B4O2OM application.  The build command to run is:
+
+```
+grunt bootstrap
+```
+
+Once complete, you will see any modifications you made to `/bootstrap/scss/_variables.scss` (or elsewhere) reflected in `/src/lib/bootstrap/bootstrap.js` and `/src/css/bootstrap.css` where Webpack will pick them up.
