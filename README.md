@@ -39,12 +39,34 @@ That will compile all of the project's TypeScript (ECMAScript 2015) files into E
 
 By default it will be configured to integrate with a sample Google OAuth2 client I've configured.  That client will ask for permission to access your basic profile information so that it can show your name on the logout button.  If you want to see that in action, just hit the `Login` button in the upper right hand corner of the webapp.
 
+## Changing config environment
+
+A2B4O2OM currently uses a rudimentary environment-based config system that allows you to have different OAuth2 configurations setup for running locally, in dev, in test, or in production.  There's also one for using my demo Google OAuth2 credentials.  These Grunt tasks will copy the appropriate file from `config/` and overwrite the `config.json` file in the `src/` folder, with predjudice.
+
+Choose one of the following commands based upon the environment you wish to load in the source code.
+
+```
+grunt env:local
+grunt env:dev
+grunt env:test
+grunt env:prod
+grunt env:google
+```
+
+Use the Google environment if you just want to see OAuth2 in action and you don't have your own server configured.  The other files will have to be updated by you, the user, to work with your own OAuth2 infrastructure.
+
 ## Deploying the code
 
-If you wish to deploy the code to an actual web server, you will need to first run the following `webpack` command in order to create your code bundles and place them into the `__build__` folder.
+If you wish to deploy your application to a real web server, production or otherwise, you can use the appropriate grunt tasks to do so.  To build a test/dev build of the site, run the following command:
 
 ```
-webpack
+grunt build
 ```
 
-You would then need to copy `src/index.html`, `src/lib`, and `__build__` into the root of your server.  I'm planning to include a grunt task to handle all that but haven't gotten around to it yet.  If somebody would like to build that functionality out and send me a pull request, that would be great.
+If you require a production ready version of the application that has debugging disabled and has been uglified, then use this command instead:
+
+```
+grunt build:prod
+```
+
+Note that the prod build command will also do a 'grunt env:prod' to copy `config/config.prod.json` to `src/config.json` before running webpack and building the ZIP file.  If you wish to continue in a non-prod environment after building for prod, you will need to execute the appropriate Grunt `env` command (`env:dev`, `env:local`, `env:test`)
