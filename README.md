@@ -55,6 +55,35 @@ grunt env:google
 
 Use the Google environment if you just want to see OAuth2 in action and you don't have your own server configured.  The other files will have to be updated by you, the user, to work with your own OAuth2 infrastructure.
 
+## Configuring for OAuth2
+
+You'll find several config files in the `/config` folder of the project.  The `config.local.json` file, for example, looks similar to the following:
+
+```
+{
+  "callbackUrl": "http://localhost:3000/auth/callback",
+  "implicitGrantUrl": "http://localhost:3001/auth?redirect_uri=__callbackUrl__&response_type=token&client_id=__clientId__&scope=__scopes__",
+  "userInfoUrl": "http://localhost:3001/userinfo",
+  "userInfoNameField": "nameOfFullnameField",
+  "clientId": "a2o2demo",
+  "scopes": "yourscopes+gohere"
+}
+```
+It is configured as if you had an OAuth2 server running on port 3001 of your local machine.  I'll explain what each entry in the file means.
+
+`callbackUrl` is the URL that the OAuth2 server should redirect the user to so that our application can fetch the access token from the browser window.  This **must** be using the same domain, subdomain, protocol, and port as your main A2B4O2OM application, otherwise the app will be restricted by the browser from accessing the popup browser window.
+
+`implicitGrantUrl` is the main authorization URL of the OAuth2 server in use.  The `__callbackUrl__`, `__clientId__`, and `__scopes__` tokens in the value get replaced with the actual values you configure in this JSON config file.  This allows you to keep things easy to read while still allowing you to change the format of the URL easily.
+
+A2B4O2OM is configured for using an OAuth2 Implicit grant type request, which means it gets an access token directly and has no option for a refresh token.  Storing refresh tokens and client secrets in a client-side JavaScript application is a **very bad thing**, which is why we don't use the Authorization Code grant type.
+
+`userInfoUrl` is the OAuth2 URL to use to gain access to a user's basic information.  The access token will be inserted into the headers of the request as a bearer token in an Authorization header.
+
+`userInfoNameField` is the name of the full name field in the JSON payload returned by the `userInfoUrl` endpoint.  Google calls it 'displayName', my personal server calls it 'name'.  Hence the reason to have it configurable.
+
+`clientId` is the ID assigned to your new application by the OAuth2 administrator.  There's no need for the associated client secret (password) in our use case.
+
+`scopes` is the list of '+' separated scopes of data you are requesting.  This will be different for each OAuth2 server you come across, most likely.
 ## Deploying the code
 
 If you wish to deploy your application to a real web server, production or otherwise, you can use the appropriate grunt tasks to do so.  To build a test/dev build of the site, run the following command:
