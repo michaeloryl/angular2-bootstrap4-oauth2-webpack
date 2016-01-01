@@ -30,7 +30,7 @@ export class AuthService {
     constructor(private windows:WindowService, private http:Http) {
         http.get('config.json')
             .map(res => res.json())
-            .subscribe(config => {
+            .subscribe((config:any) => {
                 this.oAuthCallbackUrl = config.callbackUrl;
                 this.oAuthTokenUrl = config.implicitGrantUrl;
                 this.oAuthTokenUrl = this.oAuthTokenUrl
