@@ -7,6 +7,7 @@ var ProvidePlugin = webpack.ProvidePlugin;
 module.exports = {
     devtool: 'source-map',
     debug: true, // set false in production
+    cache: true,
 
     entry: {
         'vendor': './src/vendor.ts', // third party dependencies
