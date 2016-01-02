@@ -7,6 +7,7 @@ var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 module.exports = {
     devtool: 'source-map',
     debug: false, // set false in production
+    cache: true,
 
     entry: {
         'vendor': './src/vendor.ts', // third party dependencies
