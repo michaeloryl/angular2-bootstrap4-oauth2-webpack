@@ -8,6 +8,14 @@ This application is meant to be a starting point for you to work with Angular 2 
 
 There are some basic Grunt tasks defined that will help you create custom builds of Bootstrap or to change the configuration of your application's OAuth2 config. More tasks will be added as the needs surface.
 
+# Table of Contents
+ - [Getting started](#getting-started)
+ - [Changing config environment](#changing-config-environment)
+ - [Configuring for OAuth2](#configuring-for-oauth2)
+ - [Deploying the code](#deploying-the-code)
+ - [Customizing Bootstrap 4](#customizing-bootstrap-4)
+ - [Building Bootstrap 4](#building-bootstrap-4)
+
 ## Getting started
 
 To get started with A2B4O2OM you will need to clone the repository to your local machine and `cd` into it:
