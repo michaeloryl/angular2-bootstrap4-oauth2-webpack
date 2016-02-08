@@ -1,6 +1,6 @@
 {
   "name": "angular2-bootstrap4-oauth2-ohmy",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A skeleton Angular2, Bootstrap 4, OAuth2 application using webpack (oh my!)",
   "author": "Michael Oryl",
   "repository": "https://github.com/michaeloryl/angular2-bootstrap4-oauth2-webpack.git",
@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --progress --colors --content-base src --port 3000 --display-cached --display-error-details --inline"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.0",
+    "angular2": "2.0.0-beta.3",
     "bootstrap": "4.0.0-alpha.2",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.13",
@@ -19,7 +19,7 @@
     "require": "^2.4.20",
     "rxjs": "^5.0.0-beta.0",
     "traceur": "0.0.93",
-    "zone.js": "^0.5.8"
+    "zone.js": "0.5.11"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
