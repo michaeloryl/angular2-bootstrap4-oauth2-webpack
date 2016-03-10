@@ -40,12 +40,25 @@ npm install -g webpack-dev-server
 Now that you have the dependencies installed, you should be able to run the applcation with the following command:
 
 ```
-webpack-dev-server
+npm start
 ````
 
 That will compile all of the project's TypeScript (ECMAScript 2015) files into ES5 JavaScript, bundle them with your various internal and external depenencies, and launch them inside a server running on port 3000.  You can then hit [http://localhost:3000/](http://localhost:3000/) to see the application running on your machine.
 
 By default it will be configured to integrate with a sample Google OAuth2 client I've configured.  That client will ask for permission to access your basic profile information so that it can show your name on the logout button.  If you want to see that in action, just hit the `Login` button in the upper right hand corner of the webapp.
+
+Note that as of Beta.4 of Angular2, you will see some error messages upon startup regarding `require`.  These can safely be ignored for now.  An example of the messages follows:
+
+```
+ERROR in ./src/vendor.ts
+(1,1): error TS2304: Cannot find name 'require'.
+
+ERROR in ./src/vendor.ts
+(2,1): error TS2304: Cannot find name 'require'.
+
+ERROR in ./src/vendor.ts
+(12,1): error TS2304: Cannot find name 'require'.
+```
 
 ## Changing config environment
 
