@@ -9,17 +9,17 @@
     "start": "webpack-dev-server --progress --colors --content-base src --port 3000 --display-cached --display-error-details --inline"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.9",
+    "angular2": "2.0.0-beta.12",
     "bootstrap": "4.0.0-alpha.2",
     "es6-promise": "^3.0.2",
-    "es6-shim": "^0.33.13",
+    "es6-shim": "^0.35.0",
+    "zone.js": "0.6.6",
     "jquery": "^2.1.4",
     "js-cookie": "^2.1.0",
     "reflect-metadata": "^0.1.2",
     "require": "^2.4.20",
     "rxjs": "^5.0.0-beta.2",
-    "traceur": "0.0.93",
-    "zone.js": "0.5.15"
+    "traceur": "0.0.93"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
