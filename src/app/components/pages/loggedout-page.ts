@@ -8,7 +8,8 @@ import {Component, OnDestroy} from "angular2/core";
 import {CookieService} from '../../services/cookies.service';
 import {WindowService} from '../../services/window.service';
 import {AuthService} from '../../services/auth.service';
-import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
+import {ROUTER_DIRECTIVES, Router} from "angular2/router";
+import {Location} from "angular2/platform/common";
 import {Navbar} from '../../components/navbar/navbar';
 
 @Component({

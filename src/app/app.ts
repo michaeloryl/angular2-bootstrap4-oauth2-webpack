@@ -2,7 +2,8 @@
 // Previous is needed to get rid of compile warnings regarding missing typings in Angular 2 since Beta.4
 
 import {Component, provide} from 'angular2/core';
-import {ROUTER_DIRECTIVES, RouteConfig, ROUTER_PROVIDERS, RouterOutlet, PathLocationStrategy, HashLocationStrategy, LocationStrategy} from 'angular2/router';
+import {ROUTER_DIRECTIVES, RouteConfig, ROUTER_PROVIDERS, RouterOutlet} from 'angular2/router';
+import {PathLocationStrategy, HashLocationStrategy, LocationStrategy} from "angular2/platform/common";
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {bootstrap} from 'angular2/platform/browser';
 import {COMMON_DIRECTIVES} from 'angular2/common';
