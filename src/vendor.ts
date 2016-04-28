@@ -1,6 +1,5 @@
 require('./css/bootstrap.css');
 require('./css/main.css');
-
 import 'angular2/bundles/angular2-polyfills';
 
 import 'angular2/platform/browser';
