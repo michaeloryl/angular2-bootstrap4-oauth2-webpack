@@ -4,9 +4,9 @@
  * Date: 12/18/15
  * Time: 10:34 AM
  */
-import {Injectable, EventEmitter} from "angular2/core";
+import {Injectable, EventEmitter} from "@angular/core";
 import {WindowService} from './window.service';
-import {Http, Headers} from 'angular2/http'
+import {Http, Headers} from '@angular/http'
 
 @Injectable()
 export class AuthService {

@@ -1,7 +1,7 @@
-import {Directive, OnDestroy} from 'angular2/core';
+import {Directive, OnDestroy} from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {ROUTER_DIRECTIVES, Router} from "angular2/router";
-import {Location} from "angular2/platform/common";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Directive({
     selector: '[protected]'

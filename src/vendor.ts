@@ -1,12 +1,14 @@
+//declare var require;
+
 require('./css/bootstrap.css');
 require('./css/main.css');
-import 'angular2/bundles/angular2-polyfills';
 
-import 'angular2/platform/browser';
-import 'angular2/core';
-import 'angular2/http';
-import 'angular2/router';
+import '@angular/platform-browser-dynamic';
+import '@angular/platform-browser';
+import '@angular/core';
+import '@angular/common';
+import '@angular/http';
+import '@angular/router-deprecated';
 
-// FOR WHATEVER REASON, THIS MUST COME AFTER THE ANGULAR2-POLYFILLS IMPORT
 require('./lib/bootstrap/bootstrap.js');
 
