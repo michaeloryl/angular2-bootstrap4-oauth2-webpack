@@ -1,6 +1,3 @@
-///<reference path="../../node_modules/angular2/typings/browser.d.ts"/>
-// Previous is needed to get rid of compile warnings regarding missing typings in Angular 2 since Beta.4
-
 import {Component, provide} from '@angular/core';
 import {ROUTER_DIRECTIVES, RouteConfig, ROUTER_PROVIDERS, RouterOutlet} from '@angular/router-deprecated';
 import {PathLocationStrategy, HashLocationStrategy, LocationStrategy} from "@angular/common";
