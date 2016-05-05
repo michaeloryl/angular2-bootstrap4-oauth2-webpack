@@ -4,7 +4,7 @@
  * Date: 12/18/15
  * Time: 9:56 AM
  */
-import {Component} from "angular2/core";
+import {Component} from "@angular/core";
 import {Navbar} from '../../components/navbar/navbar';
 import {ProtectedDirective} from "../../directives/protected.directive";
 

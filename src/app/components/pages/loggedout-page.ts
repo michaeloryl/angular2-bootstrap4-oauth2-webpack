@@ -4,12 +4,12 @@
  * Date: 12/18/15
  * Time: 9:55 AM
  */
-import {Component, OnDestroy} from "angular2/core";
+import {Component, OnDestroy} from "@angular/core";
 import {CookieService} from '../../services/cookies.service';
 import {WindowService} from '../../services/window.service';
 import {AuthService} from '../../services/auth.service';
-import {ROUTER_DIRECTIVES, Router} from "angular2/router";
-import {Location} from "angular2/platform/common";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
+import {Location} from "@angular/common";
 import {Navbar} from '../../components/navbar/navbar';
 
 @Component({

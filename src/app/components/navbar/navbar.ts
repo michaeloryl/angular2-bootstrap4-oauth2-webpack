@@ -1,8 +1,8 @@
 //These first 3 lines will be deprecated by the final release
-import {Component} from "angular2/core";
+import {Component} from "@angular/core";
 
-import {ROUTER_DIRECTIVES, Router} from "angular2/router";
-import {Location} from "angular2/platform/common";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
+import {Location} from "@angular/common";
 import {AuthService} from '../../services/auth.service';
 
 

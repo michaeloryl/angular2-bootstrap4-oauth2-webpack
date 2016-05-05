@@ -4,7 +4,7 @@
  * Date: 12/18/15
  * Time: 9:55 AM
  */
-import {Component} from "angular2/core";
+import {Component} from "@angular/core";
 import {CookieService} from '../../services/cookies.service';
 import {WindowService} from '../../services/window.service';
 import {AuthService} from '../../services/auth.service';
