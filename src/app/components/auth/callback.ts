@@ -4,7 +4,7 @@
  * Date: 12/18/15
  * Time: 10:30 PM
  */
-import {Component} from "angular2/core";
+import {Component} from "@angular/core";
 
 @Component({
     selector: 'callback',

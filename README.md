@@ -47,18 +47,22 @@ That will compile all of the project's TypeScript (ECMAScript 2015) files into E
 
 By default it will be configured to integrate with a sample Google OAuth2 client I've configured.  That client will ask for permission to access your basic profile information so that it can show your name on the logout button.  If you want to see that in action, just hit the `Login` button in the upper right hand corner of the webapp.
 
-Note that as of Beta.4 of Angular2, you will see some error messages upon startup regarding `require`.  These can safely be ignored for now.  An example of the messages follows:
+Note that as of 2.0.0-RC.0 of Angular2, you will see some error messages upon startup regarding the TypeScript compiler not being able to find various modules.  These can safely be ignored for now, as they relate only to TypeScript typings not being found.  An example of the messages follows:
 
 ```
-ERROR in ./src/vendor.ts
-(1,1): error TS2304: Cannot find name 'require'.
+ERROR in ./src/app/app.ts
+(5,25): error TS2307: Cannot find module '@angular/platform-browser-dynamic'.
 
-ERROR in ./src/vendor.ts
-(2,1): error TS2304: Cannot find name 'require'.
+ERROR in ./src/app/app.ts
+(6,33): error TS2307: Cannot find module '@angular/common'.
 
-ERROR in ./src/vendor.ts
-(12,1): error TS2304: Cannot find name 'require'.
+ERROR in ./src/app/app.ts
+(7,23): error TS2307: Cannot find module 'rxjs/Subject'.
+
+ERROR in ./src/app/app.ts
+(8,26): error TS2307: Cannot find module 'rxjs/Observable'.
 ```
+I will attempt to clean them up, as I did with similar messages after other structural changes in the Angular2 were made.
 
 ## Changing config environment
 

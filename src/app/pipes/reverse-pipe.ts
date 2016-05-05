@@ -2,7 +2,7 @@
  * Created by mfo on 12/15/15.
  */
 
-import {Pipe, PipeTransform} from "angular2/core";
+import {Pipe, PipeTransform} from "@angular/core";
 
 @Pipe({
     name: `reverse`,
