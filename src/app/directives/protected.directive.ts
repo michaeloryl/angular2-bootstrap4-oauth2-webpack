@@ -1,6 +1,6 @@
 import {Directive, OnDestroy} from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {ROUTER_DIRECTIVES, Router} from "@angular/router";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
 import {Location} from "@angular/common";
 
 @Directive({

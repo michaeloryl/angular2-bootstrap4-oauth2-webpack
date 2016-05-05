@@ -10,7 +10,6 @@ module.exports = {
     cache: true,
 
     entry: {
-        'polyfills': './src/polyfills.ts', // polyfills
         'vendor': './src/vendor.ts', // third party dependencies
         'app': './src/app/app.ts' // our app
     },
