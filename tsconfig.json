@@ -5,6 +5,7 @@
     "experimentalDecorators": true,
     "target": "es6",
     "module": "commonjs",
+    "moduleResolution": "node",
     "removeComments": true,
     "sourceMap": true
   },
@@ -14,6 +15,5 @@
     "bootstrap"
   ],
   "files": [],
-  "definitions": [
-  ]
+  "definitions": []
 }
