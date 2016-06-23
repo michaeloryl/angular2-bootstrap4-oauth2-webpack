@@ -28,6 +28,7 @@ export class AuthService {
     private subscription;
 
     constructor(private windows:WindowService, private http:Http) {
+        //noinspection TypeScriptUnresolvedFunction
         http.get('config.json')
             .map(res => res.json())
             .subscribe((config:any) => {
@@ -106,6 +107,7 @@ export class AuthService {
         if (this.token != null) {
             var headers = new Headers();
             headers.append('Authorization', `Bearer ${this.token}`);
+            //noinspection TypeScriptUnresolvedFunction
             this.http.get(this.oAuthUserUrl, {headers: headers})
                 .map(res => res.json())
                 .subscribe(info => {
