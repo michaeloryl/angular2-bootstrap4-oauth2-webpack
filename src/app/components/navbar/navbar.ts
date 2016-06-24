@@ -38,7 +38,7 @@ import {AuthService} from '../../services/auth.service';
     `
 })
 export class Navbar {
-    constructor(private location:Location, private authService:AuthService) {
+    constructor(private authService:AuthService) {
     }
 
     get authenticated() {
@@ -55,10 +55,6 @@ export class Navbar {
 
     get userName() {
         return this.authService.getUserName();
-    }
-
-    get page() {
-        return this.location.path().split('/')[1];
     }
 }
 
