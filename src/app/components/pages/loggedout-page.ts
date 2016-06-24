@@ -8,7 +8,7 @@ import {Component, OnDestroy} from "@angular/core";
 import {CookieService} from '../../services/cookies.service';
 import {WindowService} from '../../services/window.service';
 import {AuthService} from '../../services/auth.service';
-import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Navbar} from '../../components/navbar/navbar';
 

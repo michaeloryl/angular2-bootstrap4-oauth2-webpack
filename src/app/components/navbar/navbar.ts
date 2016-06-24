@@ -1,7 +1,7 @@
 //These first 3 lines will be deprecated by the final release
 import {Component} from "@angular/core";
 
-import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {AuthService} from '../../services/auth.service';
 
@@ -20,10 +20,11 @@ import {AuthService} from '../../services/auth.service';
             <a style="color:black" class="navbar-brand" href="#">A2B4O2OM</a>
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <button [ngClass]="{active: page === 'public'}" class="nav-link btn btn-success-outline" [routerLink]="['PublicPage']">Public</button>
+                    <a [routerLinkActive]="['active']" [routerLink]="['/public']" class="nav-link btn btn-success-outline">Public</a>
                 </li>
                 <li class="nav-item">
-                    <button [disabled]="!authenticated" [ngClass]="{active: page === 'protected'}" class="nav-link btn btn-success-outline" [routerLink]="['ProtectedPage']">Protected</button>
+                <!-- @TODO: put disabled button back in instead of anchor: [disabled]="!authenticated"-->
+                    <a [routerLinkActive]="['active']" [routerLink]="['/protected']" class="nav-link btn btn-success-outline">Protected</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav pull-xs-right">
@@ -37,7 +38,7 @@ import {AuthService} from '../../services/auth.service';
     `
 })
 export class Navbar {
-    constructor(private location:Location, private router:Router, private authService:AuthService) {
+    constructor(private location:Location, private authService:AuthService) {
     }
 
     get authenticated() {
