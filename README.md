@@ -23,7 +23,7 @@ To get started with A2B4O2OM you will need to clone the repository to your local
     git clone https://github.com/michaeloryl/angular2-bootstrap4-oauth2-webpack.git
     cd angular2-bootstrap4-oauth2-webpack
 
-Once that has been done, you will need to ensure that you have Node.js already installed.  You can download it from the [Node.js website](https://nodejs.org/en/download/).  I've developed this with the 0.12.x branch, but the newer branches should work as well.
+Once that has been done, you will need to ensure that you have Node.js already installed.  You can download it from the [Node.js website](https://nodejs.org/en/download/).  I've developed this with the 0.12.x branch, but I've tested it (occasionally) on 4.4.5, and other newer branches should work as well.
 
 Installing Node.js will have the side-effect of installing `npm`, which you will use to download and install all of the application's dependencies.  You can do that by running the following command from the main project folder.
 
