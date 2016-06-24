@@ -8,7 +8,7 @@ import {Component, OnDestroy} from "@angular/core";
 import {CookieService} from '../../services/cookies.service';
 import {WindowService} from '../../services/window.service';
 import {AuthService} from '../../services/auth.service';
-import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Navbar} from '../../components/navbar/navbar';
 
@@ -24,19 +24,19 @@ import {Navbar} from '../../components/navbar/navbar';
 <div><h2>You have been logged out.</h2></div>
 `
 })
-export class LoggedoutPage implements OnDestroy{
+export class LoggedoutPage implements OnDestroy {
     private sub:any = null;
 
     constructor(private authService:AuthService, private router:Router, private location:Location) {
         if (authService.isAuthenticated()) {
             this.location.replaceState('/');
-            this.router.navigate(['PublicPage']);
+            this.router.navigateByUrl('public');
         }
 
         this.sub = this.authService.subscribe((val) => {
             if (val.authenticated) {
                 this.location.replaceState('/');
-                this.router.navigate(['PublicPage']);
+                this.router.navigateByUrl('public');
             }
         });
     }

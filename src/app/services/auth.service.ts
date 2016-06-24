@@ -25,7 +25,6 @@ export class AuthService {
     private intervalLength = 100;
 
     private locationWatcher = new EventEmitter();  // @TODO: switch to RxJS Subject instead of EventEmitter
-    private subscription;
 
     constructor(private windows:WindowService, private http:Http) {
         //noinspection TypeScriptUnresolvedFunction
@@ -180,7 +179,6 @@ export class AuthService {
             return ret;
         }, {});
     };
-
 
 }
 

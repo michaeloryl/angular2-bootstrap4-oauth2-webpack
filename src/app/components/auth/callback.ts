@@ -15,5 +15,6 @@ import {Component} from "@angular/core";
 `
 })
 export class CallbackComponent {
-    constructor() { }
+    constructor() {
+    }
 }

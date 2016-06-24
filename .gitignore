@@ -6,3 +6,4 @@ npm-debug.log
 __build__
 temp.json
 site.zip
+node_modules-0.12

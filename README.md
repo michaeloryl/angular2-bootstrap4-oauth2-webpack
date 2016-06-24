@@ -23,7 +23,7 @@ To get started with A2B4O2OM you will need to clone the repository to your local
     git clone https://github.com/michaeloryl/angular2-bootstrap4-oauth2-webpack.git
     cd angular2-bootstrap4-oauth2-webpack
 
-Once that has been done, you will need to ensure that you have Node.js already installed.  You can download it from the [Node.js website](https://nodejs.org/en/download/).  I've developed this with the 0.12.x branch, but the newer branches should work as well.
+Once that has been done, you will need to ensure that you have Node.js already installed.  You can download it from the [Node.js website](https://nodejs.org/en/download/).  I've developed this with the 0.12.x branch, but I've tested it (occasionally) on 4.4.5, and other newer branches should work as well.
 
 Installing Node.js will have the side-effect of installing `npm`, which you will use to download and install all of the application's dependencies.  You can do that by running the following command from the main project folder.
 
@@ -41,28 +41,11 @@ Now that you have the dependencies installed, you should be able to run the appl
 
 ```
 npm start
-````
+```
 
 That will compile all of the project's TypeScript (ECMAScript 2015) files into ES5 JavaScript, bundle them with your various internal and external depenencies, and launch them inside a server running on port 3000.  You can then hit [http://localhost:3000/](http://localhost:3000/) to see the application running on your machine.
 
 By default it will be configured to integrate with a sample Google OAuth2 client I've configured.  That client will ask for permission to access your basic profile information so that it can show your name on the logout button.  If you want to see that in action, just hit the `Login` button in the upper right hand corner of the webapp.
-
-Note that as of 2.0.0-RC.0 of Angular2, you will see some error messages upon startup regarding the TypeScript compiler not being able to find various modules.  These can safely be ignored for now, as they relate only to TypeScript typings not being found.  An example of the messages follows:
-
-```
-ERROR in ./src/app/app.ts
-(5,25): error TS2307: Cannot find module '@angular/platform-browser-dynamic'.
-
-ERROR in ./src/app/app.ts
-(6,33): error TS2307: Cannot find module '@angular/common'.
-
-ERROR in ./src/app/app.ts
-(7,23): error TS2307: Cannot find module 'rxjs/Subject'.
-
-ERROR in ./src/app/app.ts
-(8,26): error TS2307: Cannot find module 'rxjs/Observable'.
-```
-I will attempt to clean them up, as I did with similar messages after other structural changes in the Angular2 were made.
 
 ## Changing config environment
 
