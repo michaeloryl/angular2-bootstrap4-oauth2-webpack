@@ -30,13 +30,13 @@ export class LoggedoutPage implements OnDestroy{
     constructor(private authService:AuthService, private router:Router, private location:Location) {
         if (authService.isAuthenticated()) {
             this.location.replaceState('/');
-            this.router.navigate(['PublicPage']);
+            this.router.navigateByUrl('public');
         }
 
         this.sub = this.authService.subscribe((val) => {
             if (val.authenticated) {
                 this.location.replaceState('/');
-                this.router.navigate(['PublicPage']);
+                this.router.navigateByUrl('public');
             }
         });
     }
