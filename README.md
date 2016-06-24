@@ -10,6 +10,7 @@ There are some basic Grunt tasks defined that will help you create custom builds
 
 # Table of Contents
  - [Getting started](#getting-started)
+ - [A note about Routers](#a-note-about-routers)
  - [Changing config environment](#changing-config-environment)
  - [Configuring for OAuth2](#configuring-for-oauth2)
  - [Deploying the code](#deploying-the-code)
@@ -46,6 +47,14 @@ npm start
 That will compile all of the project's TypeScript (ECMAScript 2015) files into ES5 JavaScript, bundle them with your various internal and external depenencies, and launch them inside a server running on port 3000.  You can then hit [http://localhost:3000/](http://localhost:3000/) to see the application running on your machine.
 
 By default it will be configured to integrate with a sample Google OAuth2 client I've configured.  That client will ask for permission to access your basic profile information so that it can show your name on the logout button.  If you want to see that in action, just hit the `Login` button in the upper right hand corner of the webapp.
+
+## A note about Routers
+
+As I write this, in late June 2016, the Angular 2 team has deprecated its original Angular 2 router and is putting its 3.0 router (formerly called `Valdivostok`) through its alpha paces.
+
+This router changes much when compared to the old router, now called `Router-Deprecated`, and offers some nice advantages. One such advantage is the new `[routerLinkActive]` directive, which obviates the need for [jumping through a lot of hoops](http://stackoverflow.com/questions/34323480/in-angular-2-how-do-you-determine-the-active-route). I make use of this new directive in the `Navbar` component.
+
+As it is the future, and works well enough for my purposes, I'm using the new router.  This means that there could be a few breaking changes as the Angular 2 team continues to tweak it.  If that causes you great problems, it's not difficult to go back to the old deprecated router.
 
 ## Changing config environment
 
