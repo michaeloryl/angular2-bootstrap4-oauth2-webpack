@@ -21,6 +21,5 @@ import {ProtectedDirective} from "../../directives/protected.directive";
 })
 export class ProtectedPage {
     constructor() {
-        //console.log("Protected instantiated");
     }
 }

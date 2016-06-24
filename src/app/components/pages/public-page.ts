@@ -28,7 +28,6 @@ import {Navbar} from '../../components/navbar/navbar';
 })
 export class PublicPage {
     constructor(private  cookies:CookieService, private authService:AuthService) {
-        //console.log("Public instantiated");
     }
 
     get idCookie() {
