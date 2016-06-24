@@ -24,7 +24,7 @@ import {Navbar} from '../../components/navbar/navbar';
 <div><h2>You have been logged out.</h2></div>
 `
 })
-export class LoggedoutPage implements OnDestroy{
+export class LoggedoutPage implements OnDestroy {
     private sub:any = null;
 
     constructor(private authService:AuthService, private router:Router, private location:Location) {

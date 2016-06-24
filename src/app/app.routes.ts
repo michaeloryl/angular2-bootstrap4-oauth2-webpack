@@ -15,11 +15,3 @@ export const AppRoutes = [
     { path: 'loggedout', component: LoggedoutPage }
 ];
 
-/* // this config was used for the old, deprecated router
-@RouteConfig([
-    {path: '/loggedout', name: 'LoggedoutPage', component: LoggedoutPage},
-    {path: '/public', name: 'PublicPage', component: PublicPage},
-    {path: '/protected', name: 'ProtectedPage', component: ProtectedPage},
-    {path: '/', redirectTo: ['PublicPage']}
-])
-*/
