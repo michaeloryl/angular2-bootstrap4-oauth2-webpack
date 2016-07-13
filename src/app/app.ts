@@ -36,5 +36,5 @@ bootstrap(App, [
     ROUTER_DIRECTIVES,
     HTTP_PROVIDERS,
     provideRouter(AppRoutes),
-    provide(LocationStrategy, {useClass: HashLocationStrategy})
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
 ]); // directives added here are available to all children
