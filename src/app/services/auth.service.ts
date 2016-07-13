@@ -70,15 +70,26 @@ export class AuthService {
                         this.token = parsed.access_token;
                         if (this.token) {
                             this.authenticated = true;
+                            this.startExpiresTimer(expiresSeconds);
+                            this.expires = new Date();
+                            this.expires = this.expires.setSeconds(this.expires.getSeconds() + expiresSeconds);
+
+                            this.windowHandle.close();
+                            this.emitAuthStatus(true);
+                            this.fetchUserInfo();
+                        } else {
+                            this.authenticated = false; // we got the login callback just fine, but there was no token
+                            this.emitAuthStatus(false); // so we are still going to fail the login
                         }
 
-                        this.startExpiresTimer(expiresSeconds);
-                        this.expires = new Date();
-                        this.expires = this.expires.setSeconds(this.expires.getSeconds() + expiresSeconds);
-
-                        this.windowHandle.close();
-                        this.emitAuthStatus(true);
-                        this.fetchUserInfo();
+                    } else {
+                        // http://localhost:3000/auth/callback#error=access_denied
+                        if (href.indexOf(this.oAuthCallbackUrl) == 0) {
+                            clearInterval(this.intervalId);
+                            var parsed = this.parse(href.substr(this.oAuthCallbackUrl.length + 1));
+                            this.windowHandle.close();
+                            this.emitAuthStatusError(false, parsed);
+                        }
                     }
                 }
             }
@@ -95,7 +106,19 @@ export class AuthService {
     }
 
     private emitAuthStatus(success:boolean) {
-        this.locationWatcher.emit({success: success, authenticated: this.authenticated, token: this.token, expires: this.expires});
+        this.emitAuthStatusError(success, null);
+    }
+
+    private emitAuthStatusError(success:boolean, error:any) {
+        this.locationWatcher.emit(
+            {
+                success: success,
+                authenticated: this.authenticated,
+                token: this.token,
+                expires: this.expires,
+                error: error
+            }
+        );
     }
 
     public getSession() {
