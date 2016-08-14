@@ -1,14 +1,10 @@
 //These first 3 lines will be deprecated by the final release
 import {Component} from "@angular/core";
-
-import {ROUTER_DIRECTIVES, Router} from "@angular/router";
-import {Location} from "@angular/common";
-import {AuthService} from '../../services/auth.service';
-
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'navbar',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [],
     providers: [],
     pipes: [],
     template: `
@@ -38,7 +34,7 @@ import {AuthService} from '../../services/auth.service';
     `
 })
 export class Navbar {
-    constructor(private authService:AuthService) {
+    constructor(private authService: AuthService) {
     }
 
     get authenticated() {

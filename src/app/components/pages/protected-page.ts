@@ -5,12 +5,10 @@
  * Time: 9:56 AM
  */
 import {Component} from "@angular/core";
-import {Navbar} from '../../components/navbar/navbar';
-import {ProtectedDirective} from "../../directives/protected.directive";
 
 @Component({
     selector: 'protected-page',
-    directives: [Navbar, ProtectedDirective],
+    directives: [],
     pipes: [],
     template: `
 <div class="pos-f-t">

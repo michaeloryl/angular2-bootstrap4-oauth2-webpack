@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from "@angular/core";
+import {Pipe} from "@angular/core";
 
 @Pipe({
     name: `sortByProperty`,
