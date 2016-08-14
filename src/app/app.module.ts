@@ -1,12 +1,10 @@
-import {NgModule, Component} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {AppComponent} from './app.component';
+import {NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
+import {AppComponent} from "./app.component";
 import {RouterModule, Routes} from "@angular/router";
-
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
-
-import {PublicPage} from './components/pages/public-page'
-import {ProtectedPage} from './components/pages/protected-page'
+import {PublicPage} from "./components/pages/public-page";
+import {ProtectedPage} from "./components/pages/protected-page";
 import {LoggedoutPage} from "./components/pages/loggedout-page";
 import {WindowService} from "./services/window.service";
 import {AuthService} from "./services/auth.service";
@@ -15,7 +13,7 @@ import {HttpModule} from "@angular/http";
 import {ProtectedDirective} from "./directives/protected.directive";
 import {Navbar} from "./components/navbar/navbar";
 
-const routes:Routes = [
+const routes: Routes = [
     {path: 'public', pathMatch: 'full', component: PublicPage},
     {path: 'protected', pathMatch: 'full', component: ProtectedPage},
     {path: '', redirectTo: 'public', pathMatch: 'full'},
@@ -28,7 +26,7 @@ const routes:Routes = [
         CookieService,
         AuthService,
         WindowService,
-        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     imports: [
         HttpModule,

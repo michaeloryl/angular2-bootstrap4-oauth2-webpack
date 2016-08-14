@@ -34,7 +34,7 @@ import {AuthService} from "../../services/auth.service";
     `
 })
 export class Navbar {
-    constructor(private authService:AuthService) {
+    constructor(private authService: AuthService) {
     }
 
     get authenticated() {

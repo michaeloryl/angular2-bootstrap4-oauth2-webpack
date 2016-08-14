@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 
-declare var Cookies:any;
+declare var Cookies: any;
 
 @Injectable()
 export class CookieService {
-    cookies:any = Cookies; // Cookies is a global scope object
+    cookies: any = Cookies; // Cookies is a global scope object
 
     constructor() {
     }
@@ -17,8 +17,8 @@ export class CookieService {
         return this.cookies.get();
     }
 
-    setCookie(name:string, value:string, path:string = '/', domain:string, expiresInDays:number = 0) {
-        var options:any = {};
+    setCookie(name: string, value: string, path: string = '/', domain: string, expiresInDays: number = 0) {
+        var options: any = {};
         options.path = path;
         if (domain) {
             options.domain = domain;

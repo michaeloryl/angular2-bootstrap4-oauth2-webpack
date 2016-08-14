@@ -5,8 +5,8 @@
  * Time: 9:55 AM
  */
 import {Component} from "@angular/core";
-import {CookieService} from '../../services/cookies.service';
-import {AuthService} from '../../services/auth.service';
+import {CookieService} from "../../services/cookies.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'public-page',
@@ -25,7 +25,7 @@ import {AuthService} from '../../services/auth.service';
 `
 })
 export class PublicPage {
-    constructor(private  cookies:CookieService, private authService:AuthService) {
+    constructor(private  cookies: CookieService, private authService: AuthService) {
     }
 
     get idCookie() {
