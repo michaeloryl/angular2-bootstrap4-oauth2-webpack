@@ -12,6 +12,8 @@ import {WindowService} from "./services/window.service";
 import {AuthService} from "./services/auth.service";
 import {CookieService} from "./services/cookies.service";
 import {HttpModule} from "@angular/http";
+import {ProtectedDirective} from "./directives/protected.directive";
+import {Navbar} from "./components/navbar/navbar";
 
 const routes:Routes = [
     {path: 'public', pathMatch: 'full', component: PublicPage},
@@ -21,7 +23,7 @@ const routes:Routes = [
 ];
 
 @NgModule({
-    declarations: [AppComponent, PublicPage, ProtectedPage, LoggedoutPage],
+    declarations: [AppComponent, PublicPage, ProtectedPage, LoggedoutPage, ProtectedDirective, Navbar],
     providers: [
         CookieService,
         AuthService,
