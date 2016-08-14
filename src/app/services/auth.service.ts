@@ -5,32 +5,32 @@
  * Time: 10:34 AM
  */
 import {Injectable, EventEmitter} from "@angular/core";
-import {WindowService} from './window.service';
-import {Http, Headers} from '@angular/http'
+import {WindowService} from "./window.service";
+import {Http, Headers} from "@angular/http";
 
 @Injectable()
 export class AuthService {
-    private oAuthCallbackUrl:string;
-    private oAuthTokenUrl:string;
-    private oAuthUserUrl:string;
-    private oAuthUserNameField:string;
-    private authenticated:boolean = false;
-    private token:string;
-    private expires:any = 0;
-    private userInfo:any = {};
-    private windowHandle:any = null;
-    private intervalId:any = null;
-    private expiresTimerId:any = null;
+    private oAuthCallbackUrl: string;
+    private oAuthTokenUrl: string;
+    private oAuthUserUrl: string;
+    private oAuthUserNameField: string;
+    private authenticated: boolean = false;
+    private token: string;
+    private expires: any = 0;
+    private userInfo: any = {};
+    private windowHandle: any = null;
+    private intervalId: any = null;
+    private expiresTimerId: any = null;
     private loopCount = 600;
     private intervalLength = 100;
 
     private locationWatcher = new EventEmitter();  // @TODO: switch to RxJS Subject instead of EventEmitter
 
-    constructor(private windows:WindowService, private http:Http) {
+    constructor(private windows: WindowService, private http: Http) {
         //noinspection TypeScriptUnresolvedFunction
         http.get('config.json')
             .map(res => res.json())
-            .subscribe((config:any) => {
+            .subscribe((config: any) => {
                 this.oAuthCallbackUrl = config.callbackUrl;
                 this.oAuthTokenUrl = config.implicitGrantUrl;
                 this.oAuthTokenUrl = this.oAuthTokenUrl
@@ -52,7 +52,7 @@ export class AuthService {
                 this.emitAuthStatus(false);
                 this.windowHandle.close();
             } else {
-                var href:string;
+                var href: string;
                 try {
                     href = this.windowHandle.location.href;
                 } catch (e) {
@@ -105,11 +105,11 @@ export class AuthService {
         console.log('Session has been cleared');
     }
 
-    private emitAuthStatus(success:boolean) {
+    private emitAuthStatus(success: boolean) {
         this.emitAuthStatusError(success, null);
     }
 
-    private emitAuthStatusError(success:boolean, error:any) {
+    private emitAuthStatusError(success: boolean, error: any) {
         this.locationWatcher.emit(
             {
                 success: success,
@@ -148,7 +148,7 @@ export class AuthService {
         return this.userInfo ? this.userInfo[this.oAuthUserNameField] : null;
     }
 
-    private startExpiresTimer(seconds:number) {
+    private startExpiresTimer(seconds: number) {
         if (this.expiresTimerId != null) {
             clearTimeout(this.expiresTimerId);
         }
@@ -159,7 +159,7 @@ export class AuthService {
         console.log('Token expiration timer set for', seconds, "seconds");
     }
 
-    public subscribe(onNext:(value:any) => void, onThrow?:(exception:any) => void, onReturn?:() => void) {
+    public subscribe(onNext: (value: any) => void, onThrow?: (exception: any) => void, onReturn?: () => void) {
         return this.locationWatcher.subscribe(onNext, onThrow, onReturn);
     }
 

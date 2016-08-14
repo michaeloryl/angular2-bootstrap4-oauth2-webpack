@@ -1,6 +1,6 @@
-import {Directive, OnDestroy} from '@angular/core';
-import {AuthService} from '../services/auth.service';
-import {ROUTER_DIRECTIVES, Router} from "@angular/router";
+import {Directive, OnDestroy} from "@angular/core";
+import {AuthService} from "../services/auth.service";
+import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 
 @Directive({
@@ -8,9 +8,9 @@ import {Location} from "@angular/common";
 })
 
 export class ProtectedDirective implements OnDestroy {
-    private sub:any = null;
+    private sub: any = null;
 
-    constructor(private authService:AuthService, private router:Router, private location:Location) {
+    constructor(private authService: AuthService, private router: Router, private location: Location) {
         if (!authService.isAuthenticated()) {
             this.location.replaceState('/');
             this.router.navigateByUrl('public');

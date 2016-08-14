@@ -5,14 +5,12 @@
  * Time: 9:55 AM
  */
 import {Component} from "@angular/core";
-import {CookieService} from '../../services/cookies.service';
-import {WindowService} from '../../services/window.service';
-import {AuthService} from '../../services/auth.service';
-import {Navbar} from '../../components/navbar/navbar';
+import {CookieService} from "../../services/cookies.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'public-page',
-    directives: [Navbar],
+    directives: [],
     pipes: [],
     providers: [],
     template: `
@@ -27,7 +25,7 @@ import {Navbar} from '../../components/navbar/navbar';
 `
 })
 export class PublicPage {
-    constructor(private  cookies:CookieService, private authService:AuthService) {
+    constructor(private  cookies: CookieService, private authService: AuthService) {
     }
 
     get idCookie() {

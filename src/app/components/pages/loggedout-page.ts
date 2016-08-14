@@ -5,16 +5,13 @@
  * Time: 9:55 AM
  */
 import {Component, OnDestroy} from "@angular/core";
-import {CookieService} from '../../services/cookies.service';
-import {WindowService} from '../../services/window.service';
-import {AuthService} from '../../services/auth.service';
-import {ROUTER_DIRECTIVES, Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {Navbar} from '../../components/navbar/navbar';
 
 @Component({
     selector: 'loggedout-page',
-    directives: [Navbar],
+    directives: [],
     pipes: [],
     providers: [],
     template: `
@@ -25,9 +22,9 @@ import {Navbar} from '../../components/navbar/navbar';
 `
 })
 export class LoggedoutPage implements OnDestroy {
-    private sub:any = null;
+    private sub: any = null;
 
-    constructor(private authService:AuthService, private router:Router, private location:Location) {
+    constructor(private authService: AuthService, private router: Router, private location: Location) {
         if (authService.isAuthenticated()) {
             this.location.replaceState('/');
             this.router.navigateByUrl('public');

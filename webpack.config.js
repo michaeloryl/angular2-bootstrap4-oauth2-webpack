@@ -11,7 +11,7 @@ module.exports = {
 
     entry: {
         'vendor': './src/vendor.ts', // third party dependencies
-        'app': './src/app/app.ts' // our app
+        'app': './src/app/main.ts' // our app
     },
 
     output: {
