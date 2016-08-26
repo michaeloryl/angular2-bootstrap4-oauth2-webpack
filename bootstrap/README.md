@@ -3,9 +3,12 @@
 [![Slack](https://bootstrap-slack.herokuapp.com/badge.svg)](https://bootstrap-slack.herokuapp.com)
 ![Bower version](https://img.shields.io/bower/v/bootstrap.svg)
 [![npm version](https://img.shields.io/npm/v/bootstrap.svg)](https://www.npmjs.com/package/bootstrap)
+[![Gem version](https://img.shields.io/gem/v/bootstrap.svg)](https://rubygems.org/gems/bootstrap)
 [![Build Status](https://img.shields.io/travis/twbs/bootstrap/master.svg)](https://travis-ci.org/twbs/bootstrap)
 [![devDependency Status](https://img.shields.io/david/dev/twbs/bootstrap.svg)](https://david-dm.org/twbs/bootstrap#info=devDependencies)
-[![NuGet](https://img.shields.io/nuget/vpre/bootstrap.svg)](https://www.nuget.org/packages/bootstrap/4.0.0-alpha)
+[![Meteor Atmosphere](https://img.shields.io/badge/meteor-twbs%3Abootstrap-blue.svg)](https://atmospherejs.com/twbs/bootstrap)
+[![Packagist Prerelease](https://img.shields.io/packagist/vpre/twbs/bootstrap.svg)](https://packagist.org/packages/twbs/bootstrap)
+[![NuGet](https://img.shields.io/nuget/vpre/bootstrap.svg)](https://www.nuget.org/packages/bootstrap/4.0.0-alpha2)
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/bootstrap.svg)](https://saucelabs.com/u/bootstrap)
 
 Bootstrap is a sleek, intuitive, and powerful front-end framework for faster and easier web development, created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thornton](https://twitter.com/fat), and maintained by the [core team](https://github.com/orgs/twbs/people) with the massive support and involvement of the community.
@@ -27,12 +30,12 @@ To get started, check out <http://getbootstrap.com>!
 
 Several quick start options are available:
 
-- [Download the latest release](https://github.com/twbs/bootstrap/archive/v4.0.0-alpha.2.zip).
-- Clone the repo: `git clone https://github.com/twbs/bootstrap.git`.
-- Install with [Bower](http://bower.io): `bower install bootstrap`.
-- Install with [npm](https://www.npmjs.com): `npm install bootstrap`.
-- Install with [Meteor](https://www.meteor.com): `meteor add twbs:bootstrap`.
-- Install with [Composer](https://getcomposer.org): `composer require twbs/bootstrap`.
+- [Download the latest release.](https://github.com/twbs/bootstrap/archive/v4.0.0-alpha.3.zip)
+- Clone the repo: `git clone https://github.com/twbs/bootstrap.git`
+- Install with [npm](https://www.npmjs.com): `npm install bootstrap@4.0.0-alpha.3`
+- Install with [Meteor](https://www.meteor.com): `meteor add twbs:bootstrap@=4.0.0-alpha.3`
+- Install with [Composer](https://getcomposer.org): `composer require twbs/bootstrap`
+- Install with [Bower](http://bower.io): `bower install bootstrap#v4.0.0-alpha.3`
 - Install with [NuGet](https://www.nuget.org): CSS: `Install-Package bootstrap -Pre` Sass: `Install-Package bootstrap.sass -Pre` (`-Pre` is only required until Bootstrap v4 has a stable release).
 
 Read the [Getting started page](http://getbootstrap.com/getting-started/) for information on the framework contents, templates and examples, and more.
@@ -68,8 +71,9 @@ Bootstrap's documentation, included in this repo in the root directory, is built
 ### Running documentation locally
 
 1. Run through the [tooling setup](https://github.com/twbs/bootstrap/blob/v4-dev/docs/getting-started/build-tools.md#tooling-setup) to install Jekyll (the site builder) and other Ruby dependencies with `bundle install`.
-2. From the root `/bootstrap` directory, run `bundle exec jekyll serve` in the command line.
-3. Open <http://localhost:9001> in your browser, and voilà.
+2. Run `grunt` (or a specific set of Grunt tasks) to rebuild distributed CSS and JavaScript files, as well as our docs assets.
+3. From the root `/bootstrap` directory, run `bundle exec jekyll serve` in the command line.
+4. Open <http://localhost:9001> in your browser, and voilà.
 
 Learn more about using Jekyll by reading its [documentation](http://jekyllrb.com/docs/home/).
 
@@ -127,4 +131,4 @@ See [the Releases section of our GitHub project](https://github.com/twbs/bootstr
 
 ## Copyright and license
 
-Code and documentation copyright 2011-2015 Twitter, Inc. Code released under [the MIT license](https://github.com/twbs/bootstrap/blob/master/LICENSE). Docs released under [Creative Commons](https://github.com/twbs/bootstrap/blob/master/docs/LICENSE).
+Code and documentation copyright 2011-2016 the Bootstrap Authors and Twitter, Inc. Code released under [the MIT license](https://github.com/twbs/bootstrap/blob/master/LICENSE). Docs released under [Creative Commons](https://github.com/twbs/bootstrap/blob/master/docs/LICENSE).
