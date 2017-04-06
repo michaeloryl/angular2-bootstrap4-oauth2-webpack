@@ -4,9 +4,9 @@
  * Date: 12/18/15
  * Time: 10:34 AM
  */
-import {Injectable, EventEmitter} from "@angular/core";
-import {WindowService} from "./window.service";
-import {Http, Headers} from "@angular/http";
+import { Injectable, EventEmitter } from "@angular/core";
+import { WindowService } from "./window.service";
+import { Http, Headers } from "@angular/http";
 
 @Injectable()
 export class AuthService {
@@ -39,6 +39,15 @@ export class AuthService {
                     .replace('__scopes__', config.scopes);
                 this.oAuthUserUrl = config.userInfoUrl;
                 this.oAuthUserNameField = config.userInfoNameField;
+
+                this.token = localStorage.getItem('access_token');
+                if (this.token) {
+                    this.authenticated = true;
+                    if (localStorage.getItem('expires')) {
+                        this.expires = localStorage.getItem('expires');
+                        this.startExpiresTimer(this.expires);
+                    }
+                }
             })
     }
 
@@ -69,10 +78,12 @@ export class AuthService {
 
                         this.token = parsed.access_token;
                         if (this.token) {
+                            localStorage.setItem('access_token', this.token);
                             this.authenticated = true;
-                            this.startExpiresTimer(expiresSeconds);
                             this.expires = new Date();
                             this.expires = this.expires.setSeconds(this.expires.getSeconds() + expiresSeconds);
+                            this.startExpiresTimer(this.expires);
+                            localStorage.setItem('expires', this.expires);
 
                             this.windowHandle.close();
                             this.emitAuthStatus(true);
@@ -97,6 +108,8 @@ export class AuthService {
     }
 
     public doLogout() {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('expires');
         this.authenticated = false;
         this.expiresTimerId = null;
         this.expires = 0;
@@ -122,7 +135,7 @@ export class AuthService {
     }
 
     public getSession() {
-        return {authenticated: this.authenticated, token: this.token, expires: this.expires};
+        return { authenticated: this.authenticated, token: this.token, expires: this.expires };
     }
 
     private fetchUserInfo() {
@@ -130,7 +143,7 @@ export class AuthService {
             var headers = new Headers();
             headers.append('Authorization', `Bearer ${this.token}`);
             //noinspection TypeScriptUnresolvedFunction
-            this.http.get(this.oAuthUserUrl, {headers: headers})
+            this.http.get(this.oAuthUserUrl, { headers: headers })
                 .map(res => res.json())
                 .subscribe(info => {
                     this.userInfo = info;
@@ -148,15 +161,16 @@ export class AuthService {
         return this.userInfo ? this.userInfo[this.oAuthUserNameField] : null;
     }
 
-    private startExpiresTimer(seconds: number) {
+    private startExpiresTimer(milis: number) {
+        milis = milis - Date.now();
         if (this.expiresTimerId != null) {
             clearTimeout(this.expiresTimerId);
         }
         this.expiresTimerId = setTimeout(() => {
             console.log('Session has expired');
             this.doLogout();
-        }, seconds * 1000); // seconds * 1000
-        console.log('Token expiration timer set for', seconds, "seconds");
+        }, milis);
+        console.log('Token expiration timer set for', milis / 1000, "seconds");
     }
 
     public subscribe(onNext: (value: any) => void, onThrow?: (exception: any) => void, onReturn?: () => void) {
