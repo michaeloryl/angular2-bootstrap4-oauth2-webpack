@@ -4,7 +4,7 @@ Angular 2 skeleton app with Bootstrap 4 and OAuth2 integration, all packaged up 
 
 ## Introduction
 
-This application is meant to be a starting point for you to work with Angular 2 and OAuth2, with the added benefits of itegrating the upcoming Bootstrap 4 (in alpha as this project was started) and packaging everything in an easy to use system through the use of Webpack.
+This application is meant to be a starting point for you to work with Angular 2 and OAuth2, with the added benefits of integrating the upcoming Bootstrap 4 (in alpha as this project was started) and packaging everything in an easy to use system through the use of Webpack.
 
 There are some basic Grunt tasks defined that will help you create custom builds of Bootstrap or to change the configuration of your application's OAuth2 config. More tasks will be added as the needs surface.
 
